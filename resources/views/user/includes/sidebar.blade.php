@@ -40,7 +40,15 @@
                     <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                     <li class="{{ (Route::currentRouteName() =='user.dashboard') ? 'active': ' ' }}"><a href="{{ route('admin.dashboard') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                  
-                    <li class="{{ (Request::route()->getPrefix() =='user/blog') ? 'active': ' ' }}"><a href="{{ route('post.index') }}"><i class=" icon-books"></i> <span>View Post</span></a></li>
+                    <li class="{{ (Request::route()->getPrefix() =='user/blog') ? 'active': ' ' }}">
+                    
+                        <a href="#"><i class="icon-books"></i> <span>Your Post</span></a>
+                        <ul>
+                            <li class="{{ (Route::currentRouteName() =='blog.create') ? 'active': ' ' }}"><a href="{{ route('blog.create') }}"><i class="icon-pen-plus"></i> Create Post </a></li>
+                            <li class="{{ (Route::currentRouteName() =='blog.index') ? 'active': ' ' }}"><a href="{{ route('blog.index') }}" id="layout1"><i class="icon-newspaper"></i> View Post</a></li>
+                           
+                        </ul>
+                    </li>
                     <!-- /main -->
                 </ul>
             </div>

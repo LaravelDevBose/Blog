@@ -10,9 +10,9 @@
             <div class="single-post">
 
                 <div class="post-name">
-                    <h5 class="post-title">ঝিনুকের মালা</h5>
-                    <h6 class="post-author">-তন্ময় সাহা</h6>
-                    <p class="post-time">২০ শে মার্চ, ২০১৮  সন্ধ্যা  ৭:১০</p>
+                    <h5 class="post-title">{{ $post->title }}</h5>
+                    <h6 class="post-author">-<?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></h6>
+                    <p class="post-time"><?php $created_at = new dateTime($post->created_at); $date = date_format($created_at, 'd F Y h:i A '); echo $date;?></p>
                 </div>
                 <div class="clearfix"></div>
                 <div class="post-share">
@@ -31,9 +31,11 @@
                 </div>
 
                 <div class="clearfix"></div>
+                @if(!is_null($post->image))
                 <div class="post-image">
-                    <img src="http://s3.amazonaws.com/somewherein/pictures/salmaruhi/salmaruhi-1521551368-6dc5699_xlarge.jpg" alt="">
+                    <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
                 </div>
+                @endif
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     <div class="add-mid-body">
@@ -42,14 +44,23 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="post-content">
-                    'নীলাঞ্জনা' আমি ডাকতাম নীলা।<br>ক্লাশ 'সিক্স' থেকে 'নাইন' একসাথে পড়েছি। নীলাকেই আমার সব'চে প্রিয় বান্ধবী বলা যায়। স্কুলে আমি আগে গেলে নীলার জন্য জায়গা রাখতাম, নীলা আগে গেলে আমার জন্য জায়গা রাখতো। এক সাথে টিফিন খাওয়া, ছুটি হলে একসাথে গল্প করতে করতে বাড়ী ফেরা.........<br>নীলা আর আমি দরকারে একজন আরেকজনের জন্য জীবন দিতে পারবো, এত ঘনিষ্ঠতা আমাদের।<br><br>নীলা আমাদের স্কুলের দপ্তরির মেয়ে। উনাকে আমরা 'খালেক চাচা' বলে ডাকি।<br>ইদানিং নীলা প্রায়ই স্কুল বন্ধ করে, জিজ্ঞেস করলে বলে শরীর খারাপ থাকে। এলাকার ডাক্তার দেখিয়ে ঔষধ খাচ্ছে, কিন্তু তেমন কোনো ফল পাচ্ছে না।<br><br>সে ভালো ছাত্রী ছিলো, সবসময় তার রোল এক থেকে তিনের মধ্যে থাকতো.......<br>সামনে পরীক্ষা এভাবে শরীর খারাপ চললে যে তার পরীক্ষা খারাপ হবে।<br>নীলার বাবা নীলাকে ঢাকা নিয়ে গেলেন, সেখানে কিছু পরীক্ষা-নিরীক্ষা করে জানা গেলো, নীলার হার্টের ভালব নষ্ট হয়ে গেছে। যত দ্রুত সম্ভব অপারেশন করাতে হবে। অনেক টাকার প্রয়োজন, দপ্তরির এই সামান্য বেতনে অপারেশন সম্ভব না........<br><br>স্কুলে সব ক্লাশ থেকে টাকা উঠানো হলো। এলাকার অন্যান্য স্কুল থেকেও টাকা উঠানো হলো। পত্রিকায়ও সাহায্য চাওয়া হলো। নীলা ঢাকা যাচ্ছে অপারেশনের জন্য, আমরা সব বান্ধবীরা গেলাম নীলাকে বিদায় দিতে। আমাকে জড়িয়ে নীলার সে কি কান্না!!!! আমিও অনেক কাঁদলাম। নীলা যাবার সময় আমাকে একটা ঝিনুকের মালা দিয়ে গেলো.......<br>নীলাকে ছাড়া স্কুলে একদম ভালো লাগে না, খালি অপেক্ষা করছি কখন নীলা আসবে??<br><br>একদিন স্কুলে গিয়ে শুনি নীলার অপারেশন সাকসেসফুল হয়নি, টাকার অভাবে অপারেশন করাতে দেরি হয়ে গেছে।<br><br>খালেক চাচার মুখের দিকে তাকাতে পারতাম না, তাকালেই নীলার কথা মনে পড়ে যেতো। চাচাও আমাকে দেখলে এগিয়ে এসে মাথায় হাত বুলিয়ে বলতেন, "মারে তোমারে দেখলে আমার নীলার কথা বেশি মনে পড়ে....."<br>মেট্রিক পরিক্ষার বিদায় অনুষ্ঠানে, আমাদের কান্না দেখে স্যারেরাও চোখের পানি ধরে রাখতে পারলেন না।<br>"আজ তো তোমাদের মতো আমার মেয়েও স্কুল থেকে বিদায় নিতো, কিন্তু আমার মেয়ে তো এই পৃথিবী থেকেই বিদায় নিয়ে নিলো........!" কথাগুলো বলতে গিয়ে খালেক চাচা কান্নায় ভেঙ্গে পড়লেন।<br><br>নীলার দেওয়া সেই ঝিনুকের মালাটা আজো আমার কাছে আছে।<br>এত বছর পরেও নীলার কথা মনে পড়লে, নীলার দেওয়া সেই ঝিনুকের মালাটা সযত্নে স্পর্শ করি, কারণ মালাটাতে যে এখনো নীলার হাতের স্পর্শ লেগে আছে.........!!!
+                    {!! $post->details !!}
                 </div>
                 <div class="clearfix"></div>
                 <div class="row post-footer">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 post-activity">
-                        <a href="#" title="১৫ টি মন্তব্য">১৫ <i class="fas fa-comments"></i></a>
-                        <a href="#" title="১২০ বার পঠিত">১২০ <i class="fas fa-book"></i></a>
-                        <a href="#" title="১ জনের ভাল লেগেছে">১২ <i class="fas fa-thumbs-up"></i></a>
+                        <a href="#" style="text-decoration: none;" title="{{ count($post->comments) }} টি মন্তব্য">{{ count($post->comments) }} <i class="fas fa-comments"></i></a>
+                        <a href="#" style="text-decoration: none;" title="{{ $post->reading->reading_count}} বার পঠিত">{{ $post->reading->reading_count}} <i class="fas fa-book"></i></a>
+                        @if (Auth::guest())
+                        <a href="#" onclick="$('#modal_comment_login').modal('show');" title="{{ $post->like->like }} জনের ভাল লেগেছে">{{ $post->like->like }} <i class="fas fa-thumbs-up"></i></a>
+                        @else
+                            <?php $user_id = explode(',', $post->like->user_id); ?>
+                            @if (!in_array(Auth::User()->id, $user_id)|| empty($user_id))
+                            <a href="{{ route('like',['post_id'=>$post->id,'action'=>'0']) }}" title="{{ $post->like->like }} জনের ভাল লেগেছে">{{ $post->like->like }} <i class="fas fa-thumbs-up"></i></a>
+                            @else
+                            <a href="{{ route('like',['post_id'=>$post->id,'action'=>'1']) }}" title="{{ $post->like->like }} জনের ভাল লেগেছে" style="color: #e813ba">{{ $post->like->like }} <i class="fas fa-thumbs-up"></i></a>
+                            @endif
+                        @endif
                     </div>
                 </div>
 
@@ -58,10 +69,13 @@
                     <h5 class="post-comment-title">এই লেখার মন্তব্য সমূহ </h5>
                     <section class="comment-list">
                         <!-- Comment -->
+                        @foreach($comments as $comment)
                         <article class="row">
                             <div class="col-md-2 col-sm-2 hidden-xs">
                                 <figure class="thumbnail">
-                                    <img class="img-responsive" src="img/post-sample-image.jpg" />
+                                <?php $user = $comment->user;  $avater = $user->avater;  if(!file_exists($avater)){$avater ='public/backend/assets/images/professor.png'; }?>
+
+                                    <img class="img-responsive" src="{{ asset($avater) }}" alt="{{ $user->name }}" />
 
                                 </figure>
                             </div>
@@ -69,101 +83,82 @@
                                 <div class="panel panel-default arrow left">
                                     <div class="panel-body comment-body">
                                         <header class="text-left">
-                                            <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
-                                            <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                            <div class="comment-user"><i class="fa fa-user"></i> {{ $user->name }}</div>
+                                            <time class="comment-date" datetime="{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}"><i class="fa fa-clock-o"></i>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</time>
                                         </header>
                                         <div class="comment-post">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            </p>
+                                            <p> {!! $comment->comment !!}</p>
                                         </div>
-                                        <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>
+                                        <p class="text-right"><a href="#" id="{{$comment->id}}" class="btn btn-default btn-sm reply_commnet"><i class="fa fa-reply"></i> reply</a></p>
                                     </div>
                                 </div>
                             </div>
                         </article>
-                        <!-- /Comment -->
+
                         <!-- Reply -->
-                        <article class="row">
-                            <div class="col-md-10 col-sm-10">
-                                <div class="panel panel-default arrow right">
-                                    <div class="panel-heading">Reply</div>
-                                    <div class="panel-body comment-body">
-                                        <header class="text-right">
-                                            <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
-                                            <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                        </header>
-                                        <div class="comment-post">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            </p>
+                        <?php $replys = App\Comment::where('prent_id', $comment->id)->get();?>
+                            @foreach($replys as $reply)
+                                <?php $reply_user = $reply->user;  $avater = $user->avater;  if(!file_exists($avater)){$avater ='public/backend/assets/images/professor.png'; }?>
+                                <article class="row">
+                                    <div class="col-md-10 col-sm-10">
+                                        <div class="panel panel-default arrow right">
+                                            <div class="panel-heading">Reply</div>
+                                            <div class="panel-body comment-body">
+                                                <header class="text-right">
+
+                                                    <div class="comment-user"><i class="fa fa-user"></i>{{ $reply_user->name }}</div>
+                                                    <time class="comment-date" datetime="{{ \Carbon\Carbon::createFromTimeStamp(strtotime($reply->created_at))->diffForHumans() }}"><i class="fa fa-clock-o"></i>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($reply->created_at))->diffForHumans() }}</time>
+                                                </header>
+                                                <div class="comment-post">
+                                                    <p>{!! $reply->comment !!}</p>
+                                                </div>
+                                                <!-- <a href="#" class="btn btn-sm "><i class="fa fa-reply"></i> reply</a> -->
+                                            </div>
                                         </div>
-                                        <a href="#" class="btn btn-sm "><i class="fa fa-reply"></i> reply</a>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-2 hidden-xs">
-                                <figure class="thumbnail reply">
-                                    <img class="img-responsive" src="img/post-sample-image.jpg" />
-                                </figure>
-                            </div>
-                        </article>
+                                    <div class="col-md-2 col-sm-2 hidden-xs">
+                                        <figure class="thumbnail reply">
+                                            <img class="img-responsive" src="{{ asset($avater) }}" />
+                                        </figure>
+                                    </div>
+                                </article>
+                            @endforeach
                         <!-- /Reply -->
-                        <article class="row">
 
-                            <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs">
-                                <figure class="thumbnail">
-                                    <img class="img-responsive" src="img/post-sample-image.jpg" />
-                                </figure>
-                            </div>
-                            <div class="col-md-10 col-sm-10">
-                                <div class="panel panel-default arrow left">
-                                    <div class="panel-body comment-body">
-                                        <header class="text-left">
-                                            <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
-                                            <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                        </header>
-                                        <div class="comment-post">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            </p>
-                                        </div>
-                                        <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-
+                        @endforeach
+                        <!-- /Comment -->
+                        
                     </section>
                 </div>
                 <div class="clearfix"></div>
                 <div class="comment-area">
                     <h5 class="comment-area-title">আপনার মন্তব্য লিখুন</h5>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="form-group">
-                                <input type="text" class="form-control"  placeholder="আপনার নাম লিখুন">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="form-group">
-                                <input type="email" class="form-control"  placeholder="আপনার ইমেল লিখুন">
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <textarea  class="form-control" id="txtEditor"  placeholder="Enter email">আপনার মন্তব্য লিখুন  </textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-block ">মন্তব্য প্রকাশ করুন </button>
-                            </div>
-                        </div>
+                        <form action="{{ route('comment')  }}" id="commnet_form" method="POST" class="col-md-12">{{ csrf_field() }}
 
+
+                        @if(Auth::check())
+                        
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="name" value="{{ Auth::user()->name }}">
+                            <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                        @endif
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <textarea name="comment"  class="form-control" id="txtArea"  placeholder="আপনার মন্তব্য লিখুন  "></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <button type="button"  id="comment_submit" class="btn btn-success btn-block ">মন্তব্য প্রকাশ করুন </button>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
+
+
                 <div class="clearfix"></div>
                 <div class="post-share">
                     <p class="share-info">এই পোস্টটি শেয়ার করতে চাইলে :</p>
@@ -205,17 +200,17 @@
                     <div class="clearfix"></div>
                     <div class="author-content">
                         <div class="author-image pull-left">
-                            <img src="img/post-sample-image.jpg" alt="">
+                            <img src="{{ asset($author_info->avater) }}" alt="">
                         </div>
                         <div class="author-name pull-right">
-                            <h5>তন্ময় সাহা</h5>
-                            <a href="" class="author-follow">অনুসরণ করুন</a>
+                            <h5>{{ $author_info->name }}</h5>
+                            <!-- <a href="" class="author-follow">অনুসরণ করুন</a> -->
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="author-info">
                         <p>
-                            নীলার বাবা নীলাকে ঢাকা নিয়ে গেলেন, সেখানে কিছু পরীক্ষা-নিরীক্ষা করে জানা গেলো, নীলার হার্টের ভালব নষ্ট হয়ে গেছে। যত দ্রুত সম্ভব অপারেশন করাতে হবে। অনেক টাকার প্রয়োজন, দপ্তরির এই সামান্য বেতনে অপারেশন সম্ভব না........
+                            {!! $author_info->bio !!}
                         </p>
                     </div>
 
@@ -228,42 +223,25 @@
                         <h5>লেখকের অন্যান্য কবিতা গুলো</h5>
                     </div>
                     <ul>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
+                        @forelse($author_posts as $author_post)
+                        <li >
+                            <a href="{{route('blog',$author_post->id) }}" >
+                                @if(!is_null($author_post->image))
+                                <img src="{{ asset($author_post->image) }}" alt="{{ $author_post->title }}">
+                                @endif
+                                <p>{{ $author_post->title }}
+                                    <label>লেখকঃ- <span><?php echo ($author_post->author_type==1)? $author_post->author->name: $author_post->admin_author->name; ?></span></label>
                                 </p>
 
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
 
-                            </a>
+                        @empty
+                        <li >
+                            <p>লেখকের অন্যান্য কোন  কবিতা নেই  </p>
                         </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
 
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
+                        @endforelse
                     </ul>
                     <div class="clearfix"></div>
                     <div class="this-week-pos-footer">
@@ -280,5 +258,100 @@
 </div>
 
 
+<div id="modal_comment_input" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+            </div>
+            <div class="modal-body">
+                <h6 class="text-semibold">মন্তব্য খালি!!! অনুগ্রহ করে কিছু লিখুন.</h6>
+            </div>
 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Ok</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_reply" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('reply')  }}" id="reply_form" method="POST" class="col-md-12">{{ csrf_field() }}
+                    <input type="hidden" name="prent_id" >
+                    @if(Auth::check())
+                    
+                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                        <input type="hidden" name="name" value="{{ Auth::user()->name }}">
+                        <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                    @endif
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <textarea name="comment"  class="form-control" id="replyArea"  placeholder="আপনার মন্তব্য লিখুন  "></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <button type="button"  id="reply_submit" class="btn btn-success btn-block ">মন্তব্য প্রকাশ করুন </button>
+                        </div>
+                    </div>
+                    </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@endsection
+
+@section('extra_script')
+<script>
+    $('#comment_submit').click(function(){
+        var txtArea = $('#txtArea').val();
+
+        if("{{ Auth::guest() }}"){
+            // $('#modal_comment_input').modal('show');
+            $('#modal_comment_login').modal('show');
+        }else if(txtArea.length === 0){
+            $('#modal_comment_input').modal('show');
+        }else{
+            $("#commnet_form").submit();
+        }
+        
+    });
+    $('#reply_submit').click(function(){
+        var replyArea = $('#replyArea').val();
+        
+        if("{{ Auth::guest() }}"){
+            $('#modal_reply').modal('hide');
+            $('#modal_comment_login').modal('show');
+        }else if(replyArea.length === 0){
+            $('#modal_reply').modal('hide');
+            $('#modal_comment_input').modal('show');
+        }else if(replyArea.length  > 0){
+            $("#reply_form").submit();
+        }
+        
+    });
+
+    $('.reply_commnet').click(function(e){
+        var prent_id = $(this).attr('id');
+
+        $('input[name="prent_id"]').val(prent_id);
+        $('#modal_reply').modal('show');
+        $('#replyArea').val('');
+    });
+</script>
 @endsection

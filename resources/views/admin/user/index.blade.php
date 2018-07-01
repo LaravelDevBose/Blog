@@ -35,35 +35,38 @@
 			<thead>
 				<tr>
 					<th>Status</th>
-					<th>Product name</th>
-					<th>Size</th>
-					<th>Colour</th>
-					<th>Article number</th>
-					<th>Units</th>
+					<th>User Name</th>
+					<th>Total Post</th>
+					<th>Comments</th>
+					<th>Followers</th>
+					<th>Following</th>
 					<th>Price</th>
 					<th class="text-center"><i class="icon-arrow-down12"></i></th>
 				</tr>
 			</thead>
 			<tbody>
+				@foreach($users as $user)
 				<tr>
 					<td></td>
 					<td>
 						<div class="media">
 							<a href="#" class="media-left">
-								<img src="{{ asset('public/backend/assets/images/placeholder.jpg') }}" height="60" class="" alt="">
+                    			<?php $avater = $user->avater;  if(!file_exists($avater)){$avater ='public/backend/assets/images/professor.png'; }?>
+
+								<img src="{{ asset($avater) }}" height="60" class="" alt="{{ $user->name }}">
 							</a>
 
 							<div class="media-body media-middle">
-								<a href="#" class="text-semibold">Fathom Backpack</a>
+								<a href="#" class="text-semibold">{{ $user->name }}</a>
 								<div class="text-muted text-size-small">
-									<span class="status-mark bg-grey position-left"></span>
-									Processing
+									<span class="status-mark bg-{{ ($user->status == 1) ? 'success' :($user->status == 0) ? 'danger' : 'primary' }} position-left"></span>
+									{{ ($user->status == 1) ? 'Active' :($user->status == 0) ? 'Block' : 'Procecing' }}
 								</div>
 							</div>
 						</div>
 					</td>
-					<td>34cm x 29cm</td>
-					<td>Orange</td>
+					<td>{{ count($user->posts) }}</td>
+					<td>{{ count($user->comments) }}</td>
 					<td>
 						<a href="#">1237749</a>
 					</td>
@@ -86,136 +89,7 @@
 						</ul>
 					</td>
 				</tr>
-
-				<tr>
-					<td></td>
-					<td>
-						<div class="media">
-							<a href="#" class="media-left">
-								<img src="{{ asset('public/backend/assets/images/placeholder.jpg') }}" height="60" class="" alt="">
-							</a>
-
-							<div class="media-body media-middle">
-								<a href="#" class="text-semibold">Mystery Air Long Sleeve T Shirt</a>
-								<div class="text-muted text-size-small">
-									<span class="status-mark bg-grey position-left"></span>
-									Processing
-								</div>
-							</div>
-						</div>
-					</td>
-					<td>L</td>
-					<td>Process Red</td>
-					<td>
-						<a href="#">345634</a>
-					</td>
-					<td>1</td>
-					<td>
-						<h6 class="no-margin text-semibold">&euro; 38.00</h6>
-					</td>
-					<td class="text-center">
-						<ul class="icons-list">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li><a href="#"><i class="icon-truck"></i> Track parcel</a></li>
-									<li><a href="#"><i class="icon-file-download"></i> Download invoice</a></li>
-									<li><a href="#"><i class="icon-wallet"></i> Payment details</a></li>
-									<li class="divider"></li>
-									<li><a href="#"><i class="icon-warning2"></i> Report problem</a></li>
-								</ul>
-							</li>
-						</ul>
-					</td>
-				</tr>
-
-				<tr>
-					<td></td>
-					<td>
-						<div class="media">
-							<a href="#" class="media-left">
-								<img src="{{ asset('public/backend/assets/images/placeholder.jpg') }}" height="60" class="" alt="">
-							</a>
-							
-							<div class="media-body media-middle">
-								<a href="#" class="text-semibold">Women’s Prospect Backpack</a>
-								<div class="text-muted text-size-small">
-									<span class="status-mark bg-grey position-left"></span>
-									Processing
-								</div>
-							</div>
-						</div>
-					</td>
-					<td>46cm x 28cm</td>
-					<td>Neu Nordic Print</td>
-					<td>
-						<a href="#">5739584</a>
-					</td>
-					<td>1</td>
-					<td>
-						<h6 class="no-margin text-semibold">&euro; 60.00</h6>
-					</td>
-					<td class="text-center">
-						<ul class="icons-list">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li><a href="#"><i class="icon-truck"></i> Track parcel</a></li>
-									<li><a href="#"><i class="icon-file-download"></i> Download invoice</a></li>
-									<li><a href="#"><i class="icon-wallet"></i> Payment details</a></li>
-									<li class="divider"></li>
-									<li><a href="#"><i class="icon-warning2"></i> Report problem</a></li>
-								</ul>
-							</li>
-						</ul>
-					</td>
-				</tr>
-
-				<tr>
-					<td></td>
-					<td>
-						<div class="media">
-							<a href="#" class="media-left">
-								<img src="{{ asset('public/backend/assets/images/placeholder.jpg') }}" height="60" class="" alt="">
-							</a>
-
-							<div class="media-body media-middle">
-								<a href="#" class="text-semibold">Overlook Short Sleeve T Shirt</a>
-								<div class="text-muted text-size-small">
-									<span class="status-mark bg-grey position-left"></span>
-									Processing
-								</div>
-							</div>
-						</div>
-					</td>
-					<td>M</td>
-					<td>Gray Heather</td>
-					<td>
-						<a href="#">434450</a>
-					</td>
-					<td>1</td>
-					<td>
-						<h6 class="no-margin text-semibold">&euro; 35.00</h6>
-					</td>
-					<td class="text-center">
-						<ul class="icons-list">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li><a href="#"><i class="icon-truck"></i> Track parcel</a></li>
-									<li><a href="#"><i class="icon-file-download"></i> Download invoice</a></li>
-									<li><a href="#"><i class="icon-wallet"></i> Payment details</a></li>
-									<li class="divider"></li>
-									<li><a href="#"><i class="icon-warning2"></i> Report problem</a></li>
-								</ul>
-							</li>
-						</ul>
-					</td>
-				</tr>
-
-	
-
-
+				@endforeach
 			</tbody>
 		</table>
 	</div>

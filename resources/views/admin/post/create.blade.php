@@ -26,17 +26,14 @@
 			<div class=" col-lg-12">
 				<!-- Form validation -->
 				
-					<div class="panel panel-flat">
+					<div class="panel panel-success panel-bordered">
 						<div class="panel-heading">
 							<h5 class="panel-title">Post Insert Form</h5>
 							<div class="heading-elements">
-								<ul class="icons-list">
-			                		<li><a data-action="collapse"></a></li>
-			                		<li><a data-action="reload"></a></li>
-			                		{{-- <li><a data-action="close"></a></li> --}}
-			                	</ul>
+								<a href="{{ route('post.index')}}" class="btn btn-info btn-sm text-white"><i class="icon-move-left position-left"></i> Back</a>
+
 		                	</div>
-						</div><hr>
+						</div>
 
 						<div class="panel-body">
 						
@@ -72,14 +69,26 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-8">
+								<div class="col-md-6">
 									<div class="form-group">
-										<label>Tags: <span class="text-bold text-danger">*</span></label>
-										<textarea name="tags"   rows="3" cols="100" placeholder="Enter Your Post Details.....">{{ old('tags') }}</textarea>
-										<span class="help-block text-info">Use Comma "," after Every Key word</span>
+										<label>Tags:</label>
+										<textarea name="tags"  class="form-control" maxlength="250" placeholder="Enter Your Post Details.....">{{ old('tags') }}</textarea>
+										<span class="help-block text-info">Insert Key word That Help to Search your Post also For SEO(Use Comma "," after Every Key word)</span>
 									</div>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
+									<div class="form-group">
+		
+			                            <label class="checkbox-inline">
+											<input type="checkbox" class="styled" name="selected">
+											নির্বাচিত পোস্ট
+										</label>
+										
+										<span class="help-block text-info">if this Post show as (নির্বাচিত পোস্ট) Select one</span>
+		                            </div>
+								</div>
+
+								<div class="col-md-3">
 									<div class="form-group">
 			                            <label>Status: <span class="text-bold text-danger">*</span></label>
 			                            <select name="status"  data-placeholder="Select Post Status"  class="select">
@@ -93,14 +102,14 @@
 							<div class="row">
 								<div class="col-md-8">
 									<div class="form-group">
-										<label>Images: <span class="text-bold text-danger">*</span></label>
+										<label>Image: </label>
 										<input type="file" name="image" accept="image/*"  value="{{ old('image') }}"  class="file-input" data-browse-class="btn btn-primary btn-block" data-show-remove="false" data-show-caption="false" data-show-upload="false">
 										<span class="help-block">Upload Images (Max 1 Image)</span>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>PDF: <span class="text-bold text-danger">*</span></label>
+										<label>PDF: </label>
 										<input type="file" name="pdf" accept="application/pdf"  value="{{ old('pdf') }}" class="file-input" data-browse-class="btn btn-primary btn-block" data-show-remove="false" data-show-caption="false" data-show-upload="false">
 										<span class="help-block">Upload Pdf File only</span>
 									</div>

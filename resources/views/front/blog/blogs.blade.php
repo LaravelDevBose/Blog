@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title','Blogs')
+@section('title',$header)
 
 @section('content')
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -13,118 +13,46 @@
 
         <div class="col-md-12">
             <div class="page-title">
-                <h5>ির্বাচিত পোস্ট সমূহ </h5>
+                <h5>{{ $header}} </h5>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
+            @foreach($posts as $post)
             <div class="card mb-3 home-blog">
-                <img class="card-img-top" src="img/post-sample-image.jpg" alt="Card image cap" height="200">
+                @if(!is_null($post->image))
+                <img class="card-img-top" src="{{ asset($post->image) }}" alt="{{ $post->title }}" height="200">
+                @endif
                 <div class="card-body">
-                    <a href="#"><h5 class="card-title">Card title</h5></a>
-                    <a href="" class="blog-writer">লেখকঃ- <span>তন্ময় সাহা</span></a>
-                    <p class="card-text">This is a wider card with supporting text below as a natural
-                        lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <a href="#" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
+                    <a href="{{ route('blog', $post->id) }}"><h5 class="card-title">{{ $post->title }}</h5></a>
+                    <a href="{{ route('profile',['author_id'=> $post->author_id, 'author_type'=>$post->author_type]) }}" class="blog-writer">লেখকঃ- <span><?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></span></a>
+                    <p class="card-text">{!! $post->details !!}</p>
+                    <a href="{{ route('blog', $post->id) }}" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
                 </div>
                 <div class="blog-footer">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 publish-time">
-                        <small>Last updated 3 mins ago</small>
+                                    
+                        <small>Post Created {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}</small>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 user-activity">
-                        <a href="#" title="১৫ টি মন্তব্য">১৫ <i class="fas fa-comments"></i></a>
-                        <a href="#" title="১২০ বার পঠিত">১২০ <i class="fas fa-book"></i></a>
-                        <a href="#" title="১ জনের ভাল লেগেছে">১২ <i class="fas fa-thumbs-up"></i></a>
+                        <a href="#"  style="text-decoration: none;" title="{{ count($post->comments) }} টি মন্তব্য">{{ count($post->comments) }} <i class="fas fa-comments"></i></a>
+                        <a href="#" style="text-decoration: none;" title="{{ $post->reading->reading_count}} বার পঠিত">{{ $post->reading->reading_count}} <i class="fas fa-book"></i></a>
+                        @if (Auth::guest())
+                        <a href="#" onclick="$('#modal_comment_login').modal('show');" title="{{ $post->like->like }} জনের ভাল লেগেছে">{{ $post->like->like }} <i class="fas fa-thumbs-up"></i></a>
+                        @else
+                            <?php $user_id = explode(',', $post->like->user_id); ?>
+                            @if (!in_array(Auth::User()->id, $user_id)|| empty($user_id))
+                            <a href="{{ route('like',['post_id'=>$post->id,'action'=>'0']) }}" title="{{ $post->like->like }} জনের ভাল লেগেছে">{{ $post->like->like }} <i class="fas fa-thumbs-up"></i></a>
+                            @else
+                            <a href="{{ route('like',['post_id'=>$post->id,'action'=>'1']) }}" title="{{ $post->like->like }} জনের ভাল লেগেছে" style="color: #e813ba">{{ $post->like->like }} <i class="fas fa-thumbs-up"></i></a>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>
-            <div class="card mb-3 home-blog">
-                <img class="card-img-top" src="img/post-sample-image.jpg" alt="Card image cap" height="200">
-                <div class="card-body">
-                    <a href="#"><h5 class="card-title">Card title</h5></a>
-                    <a href="" class="blog-writer">লেখকঃ- <span>তন্ময় সাহা</span></a>
-                    <p class="card-text">This is a wider card with supporting text below as a natural
-                        lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <a href="#" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
-                </div>
-                <div class="blog-footer">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 publish-time">
-                        <small>Last updated 3 mins ago</small>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 user-activity">
-                        <a href="#" title="১৫ টি মন্তব্য">১৫ <i class="fas fa-comments"></i></a>
-                        <a href="#" title="১২০ বার পঠিত">১২০ <i class="fas fa-book"></i></a>
-                        <a href="#" title="১ জনের ভাল লেগেছে">১২ <i class="fas fa-thumbs-up"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 home-blog">
-                <img class="card-img-top" src="img/post-sample-image.jpg" alt="Card image cap" height="200">
-                <div class="card-body">
-                    <a href="#"><h5 class="card-title">Card title</h5></a>
-                    <a href="" class="blog-writer">লেখকঃ- <span>তন্ময় সাহা</span></a>
-                    <p class="card-text">This is a wider card with supporting text below as a natural
-                        lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <a href="#" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
-                </div>
-                <div class="blog-footer">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 publish-time">
-                        <small>Last updated 3 mins ago</small>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 user-activity">
-                        <a href="#" title="১৫ টি মন্তব্য">১৫ <i class="fas fa-comments"></i></a>
-                        <a href="#" title="১২০ বার পঠিত">১২০ <i class="fas fa-book"></i></a>
-                        <a href="#" title="১ জনের ভাল লেগেছে">১২ <i class="fas fa-thumbs-up"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 home-blog">
-                <img class="card-img-top" src="img/post-sample-image.jpg" alt="Card image cap" height="200">
-                <div class="card-body">
-                    <a href="#"><h5 class="card-title">Card title</h5></a>
-                    <a href="" class="blog-writer">লেখকঃ- <span>তন্ময় সাহা</span></a>
-                    <p class="card-text">This is a wider card with supporting text below as a natural
-                        lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <a href="#" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
-                </div>
-                <div class="blog-footer">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 publish-time">
-                        <small>Last updated 3 mins ago</small>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 user-activity">
-                        <a href="#" title="১৫ টি মন্তব্য">১৫ <i class="fas fa-comments"></i></a>
-                        <a href="#" title="১২০ বার পঠিত">১২০ <i class="fas fa-book"></i></a>
-                        <a href="#" title="১ জনের ভাল লেগেছে">১২ <i class="fas fa-thumbs-up"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 home-blog">
-                <img class="card-img-top" src="img/post-sample-image.jpg" alt="Card image cap" height="200">
-                <div class="card-body">
-                    <a href="#"><h5 class="card-title">Card title</h5></a>
-                    <a href="" class="blog-writer">লেখকঃ- <span>তন্ময় সাহা</span></a>
-                    <p class="card-text">This is a wider card with supporting text below as a natural
-                        lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <a href="#" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
-                </div>
-                <div class="blog-footer">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 publish-time">
-                        <small>Last updated 3 mins ago</small>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 user-activity">
-                        <a href="#" title="১৫ টি মন্তব্য">১৫ <i class="fas fa-comments"></i></a>
-                        <a href="#" title="১২০ বার পঠিত">১২০ <i class="fas fa-book"></i></a>
-                        <a href="#" title="১ জনের ভাল লেগেছে">১২ <i class="fas fa-thumbs-up"></i></a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
     </div>
@@ -146,42 +74,22 @@
                         <h5>জনপ্রিয় কবিতা গুলো</h5>
                     </div>
                     <ul>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
+                        @foreach($most_like_posts as $like_post)
+                        <?php $post = $like_post->post; ?>
+                        @if($post->status == 1)
+                        <li >
+                            <a href="{{route('blog',$post->id) }}" >
+                                @if(!is_null($post->image))
+                                <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                @endif
+                                <p>{{ $post->title }}
+                                    <label>লেখকঃ- <span><?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></span></label>
                                 </p>
 
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
+                        @endif
+                        @endforeach
                     </ul>
                     <div class="popular-post-footer">
                         <a href="">সবগুলো পড়ুন ..</a>
@@ -194,42 +102,22 @@
                         <h5>জনপ্রিয় কবিতা গুলো</h5>
                     </div>
                     <ul>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
+                        @foreach($most_read_posts as $read_post)
+                        <?php $post = $read_post->post; ?>
+                        @if($post->status == 1)
+                        <li >
+                            <a href="{{route('blog',$post->id) }}" >
+                                @if(!is_null($post->image))
+                                <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                @endif
+                                <p>{{ $post->title }}
+                                    <label>লেখকঃ- <span><?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></span></label>
                                 </p>
 
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
+                        @endif
+                        @endforeach
                     </ul>
                     <div class="this-week-pos-footer">
                         <a href="">সবগুলো পড়ুন ..</a>

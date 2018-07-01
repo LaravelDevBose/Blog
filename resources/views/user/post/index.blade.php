@@ -1,107 +1,93 @@
 @extends('layouts.user')
 @section('title', 'View Post')
 @section('asset')
-    <!-- Theme JS files -->
+     <!-- Theme JS files -->
+    
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/tables/datatables/extensions/buttons.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/core/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/datatables_extension_colvis.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/ui/ripple.min.js') }}"></script>
-    <!-- /theme JS files -->
+ <!-- /Theme JS files -->
 @endsection
 
 @section('content')
 
 <!-- Content area -->
 <div class="content">
-
-    <!-- Post grid -->
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-flat">
-                <div class="panel-body">
-                    <div class="thumb content-group">
-                        <!-- <img src="{{ asset('public/backend/assets/images/placeholder.jpg') }}" alt="" class="img-responsive"> -->
-                        <div class="caption-overflow">
-                            <span>
-                                <a href="blog_single.html" class="btn btn-flat border-white text-white btn-rounded btn-icon"><i class="icon-arrow-right8"></i></a>
-                            </span>
-                        </div>
-                    </div>
-
-                    <h5 class="text-semibold mb-5">
-                        <a href="#" class="text-default">Domestic confined any but son</a>
-                    </h5>
-
-                    <ul class="list-inline list-inline-separate text-muted content-group">
-                        <li>By <a href="#" class="text-muted">Eugene</a></li>
-                        <li>July 20th, 2016</li>
-                    </ul>
-
-                    How proceed offered her offence shy forming. Returned peculiar pleasant but appetite differed she. Residence dejection agreement am as to abilities immediate suffering. Ye am depending propriety sweetness distrusts belonging collected. Smiling mention he
-                </div>
-
-                <div class="panel-footer panel-footer-condensed">
-                    <div class="heading-elements not-collapsible">
-                        <ul class="list-inline list-inline-separate heading-text text-muted">
-                            <li><a href="#" class="text-muted"><i class="icon-heart6 text-size-base text-pink position-left"></i> 29</a></li>
-                        </ul>
-
-                        <a href="#" class="heading-text pull-right">Read more <i class="icon-arrow-right14 position-right"></i></a>
-                    </div>
-                </div>
+<!-- Orders history (datatable) -->
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h6 class="panel-title">User List</h6>
+            <div class="heading-elements">
+                
+                <a href="{{ route('blog.create') }}" class="btn btn-sm btn-info"><i class=" icon-add"></i> New Post</a>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-flat">
-                <div class="panel-body">
-                    <div class="thumb content-group">
-                        <img src="{{ asset('public/backend/assets/images/placeholder.jpg') }}" alt="" class="img-responsive">
-                        <div class="caption-overflow">
-                            <span>
-                                <a href="blog_single.html" class="btn btn-flat border-white text-white btn-rounded btn-icon"><i class="icon-arrow-right8"></i></a>
-                            </span>
+
+        <table class="table datatable-colvis-state text-nowrap">
+            <thead>
+                <tr>
+                    
+                    <th>Post Title</th>
+                    <th>Categoty</th>
+                    <th>Like</th>
+                    <th>Comment</th>
+                    <th>Ratting</th>
+                    <th>Status</th>
+                    <th class="text-center"><i class="icon-arrow-down12"></i> Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($posts as $post)
+                <tr>
+                   
+                    <td>
+                        <div class="media">
+                             @if(file_exists($post->image))
+                            <a href="#" class="media-left">
+                                <img src="{{ asset($post->image) }}" height="60" width="60" class="" alt="{{ $post->title }}">
+                            </a>
+                            @endif
+
+                            <div class="media-body media-middle">
+                                <a href="{{ route('blog.view', $post->id) }}" class="text-semibold">{{ $post->title }}</a>
+                                <div class="text-muted text-size-small">
+                                    <i class="icon-calendar2 text-info position-left"></i>
+                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->diffForHumans() }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <h5 class="text-semibold mb-5">
-                        <a href="#" class="text-default">Wisdom new and valley answer</a>
-                    </h5>
-
-                    <ul class="list-inline list-inline-separate text-muted content-group">
-                        <li>By <a href="#" class="text-muted">Eugene</a></li>
-                        <li>July 19th, 2016</li>
-                    </ul>
-
-                    Rank tall boy man them over post now. Off into she bed long fat room. Recommend existence curiosity perfectly favourite get eat she why daughters. Not may too nay busy last song must sell. An newspaper assurance discourse ye certainly. Soon gone game and why many calm have.
-                </div>
-
-                <div class="panel-footer panel-footer-condensed">
-                    <div class="heading-elements not-collapsible">
-                        <ul class="list-inline list-inline-separate heading-text text-muted">
-                            <li><a href="#" class="text-muted"><i class="icon-heart6 text-size-base text-pink position-left"></i> 64</a></li>
+                    </td>
+                    <td>{{ $post->category->cat_title }}</td>
+                    
+                    <td> 50</td>
+                    <td>10</td>
+                    <td>4.8</td>
+                    <td>
+                        @if($post->status == 1)
+                            <label class="label label-success">Publish</label>
+                        @else
+                            <label class="label label-danger">UnPublish</label>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><a href="{{ route('blog.view', $post->id) }}" title="View Post" class="label label-info"><i class="icon-eye"></i></a></li>
+                          <li class="list-inline-item"><a href="{{ route('blog.edit', $post->id) }}" title="Edit Post" class="label label-primary"><i class="icon-pencil7"></i></a></li>
+                          <li class="list-inline-item"><a href="{{ route('blog.destroy', $post->id) }}" title="Delete Post" class="label label-danger"><i class="icon-trash"></i></a></li>
+                          
                         </ul>
-
-                        <a href="#" class="heading-text pull-right">Read more <i class="icon-arrow-right14 position-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-    <!-- /post grid -->
+    <!-- /orders history (datatable) -->
 
-
-    <!-- Pagination -->
-    <div class="text-center content-group-lg pt-20">
-        <ul class="pagination">
-            <li class="disabled"><a href="#"><i class="icon-arrow-small-left"></i></a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#"><i class="icon-arrow-small-right"></i></a></li>
-        </ul>
-    </div>
-    <!-- /pagination -->
 
 </div>
 <!-- /content area -->

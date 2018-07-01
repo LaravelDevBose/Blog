@@ -6,7 +6,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-lg-4 col-md-7 col-sm-6 col-xs-12 pull-left">
                         <div class="logo ">
-                            <img src="{{$logo}}" alt="">
+                            <img src="{{asset($logo)}}" alt="">
                         </div>
                     </div>
 
@@ -70,41 +70,15 @@
 
                         <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto ">
-                                <li class="nav-item active ">
-                                    <a class="nav-link" href="#">প্রথম পাতা<span class="sr-only">(current)</span></a>
+                                <li class="nav-item {{ (Route::currentRouteName() =='index') ? 'active': ' ' }} ">
+                                    <a class="nav-link" href="{{ route('index') }}">প্রথম পাতা<span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">নির্বাচিত পোস্ট</a>
+                                <li class="nav-item {{ (Route::currentRouteName() =='selected.posts') ? 'active': ' ' }}">
+                                    <a class="nav-link" href="{{ route('selected.posts') }}">নির্বাচিত পোস্ট</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        বিষয় ভিত্তিক ব্লগ
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
+                                <li class="nav-item {{ (Route::currentRouteName() =='selected.posts') ? 'active': ' ' }}">
+                                    <a class="nav-link" href="{{ route('selected.posts') }}">বিষয় ভিত্তিক ব্লগ</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">নির্বাচিত পোস্ট</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        বিষয় ভিত্তিক ব্লগ
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-
-
                             </ul>
 
                         </div>

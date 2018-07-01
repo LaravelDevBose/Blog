@@ -26,7 +26,7 @@
 			<div class=" col-lg-12">
 				<!-- Form validation -->
 				
-					<div class="panel panel-flat">
+					<div class="panel panel-info panel-bordered">
 						<div class="panel-heading">
 							<h5 class="panel-title">Post Edit Form</h5>
 							<div class="heading-elements">
@@ -36,7 +36,7 @@
 			                		{{-- <li><a data-action="close"></a></li> --}}
 			                	</ul> -->
 		                	</div>
-						</div><hr>
+						</div>
 
 						<div class="panel-body">
 							<input type="hidden" name="post_id" value="{{ $post->id }}">
@@ -73,20 +73,31 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-8">
+								<div class="col-md-6">
 									<div class="form-group">
 										<label>Tags: <span class="text-bold text-danger">*</span></label>
-										<textarea name="tags"   rows="3" cols="100" placeholder="Enter Your Post Details.....">{{ $post->tags }}</textarea>
-										<span class="help-block text-info">Use Comma "," after Every Key word</span>
+										<textarea name="tags" class="form-control" placeholder="Enter Your Post Details.....">{{ $post->tags }}</textarea>
+										<span class="help-block text-info">Insert Key word That Help to Search your Post also For SEO(Use Comma "," after Every Key word)</span>
 									</div>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
+									<div class="form-group">
+		
+			                            <label class="checkbox-inline">
+											<input type="checkbox" class="styled" name="selected">
+											নির্বাচিত পোস্ট
+										</label>
+										
+										<span class="help-block text-info">if this Post show as (নির্বাচিত পোস্ট) Select one</span>
+		                            </div>
+								</div>
+
+								<div class="col-md-3">
 									<div class="form-group">
 			                            <label>Status: <span class="text-bold text-danger">*</span></label>
 			                            <select name="status"  data-placeholder="Select Post Status"  class="select">
-			                            	<option value="0">Un publish</option>
-			                            	<option value="1">Publish</option>
-
+			                            	<option value="0">Unpublish</option>
+			                            	<option value="1">publish</option>
 			                            </select>
 		                            </div>
 								</div>
@@ -95,7 +106,7 @@
 							<div class="row">
 								<div class="col-md-8">
 									<div class="form-group">
-										<label>Images: <span class="text-bold text-danger">*</span></label>
+										<label>Privious Image:</label>
 										<?php $image = $post->image; if(!file_exists($image)){$image ='public/backend/assets/images/placeholder.jpg'; }?>
 
 										<img src="{{ asset($image) }}" height="200">
@@ -104,7 +115,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>PDF: <span class="text-bold text-danger">*</span></label>
+										<label>Privious PDF: </label>
 										<?php $pdf = $post->pdf; if(!file_exists($pdf)){ ?>
 											<img src="{{ asset('public/backend/assets/images/no_pdf.jpg') }}" height="200">
 										<?php } else{?>
@@ -120,14 +131,14 @@
 							<div class="row">
 								<div class="col-md-8">
 									<div class="form-group">
-										<label>Images: <span class="text-bold text-danger">*</span></label>
+										<label>Image: </label>
 										<input type="file" name="image" accept="image/*"  value="{{ old('image') }}"  class="file-input" data-browse-class="btn btn-primary btn-block" data-show-remove="false" data-show-caption="false" data-show-upload="false">
 										<span class="help-block">Upload Images (Max 4 Images)</span>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>PDF: <span class="text-bold text-danger">*</span></label>
+										<label>PDF: </label>
 										<input type="file" name="pdf"  accept="application/pdf"  value="{{ old('pdf') }}" class="file-input" data-browse-class="btn btn-primary btn-block" data-show-remove="false" data-show-caption="false" data-show-upload="false">
 										<span class="help-block">Upload pdf file only</span>
 									</div>

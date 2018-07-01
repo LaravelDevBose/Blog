@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 use App\Setting;
+use App\Post;
 use View;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,7 +37,11 @@ class AppServiceProvider extends ServiceProvider
                  ->with('aboutUs', $aboutUs);
         });
 
-        
+        view::composer('front.includes.footer', function($view){
+            $selected_posts = Post::where('status', 1)->where('selected',1)->orderBy('id','desc')->take('5')->get();
+            $view->with('selected_posts', $selected_posts);
+                 
+        });
     }
 
     /**

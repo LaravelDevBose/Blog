@@ -290,8 +290,9 @@ class SettingController extends Controller
     {
         $credentials = [
             'email'=>Auth::User()->email,
-            'password'=>$request->old_password,
+            'password'=>$request->old_password, 
         ];
+        
         if(Auth::guard('web')->once($credentials)){
             $user = User::find(Auth::id());
             $user->password = bcrypt($request->password);

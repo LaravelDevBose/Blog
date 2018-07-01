@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use Session;
 use Auth;
+use App\ReadPost;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,9 @@ class PostController extends Controller
     }
 
     public function userIndex()
-    {
-        return view('user.post.index');
+    {   
+        $posts = Post::where('author_id',Auth::id())->get();
+        return view('user.post.index',['posts'=>$posts]);
     }
 
     public function create()
@@ -61,14 +63,26 @@ class PostController extends Controller
 
             $post = new Post;
             $post->title= $request->title;
-            $post->author_id= (Auth::guard('web')->check())? Auth::id() : '0';
+            $post->author_type= (Auth::guard('web')->check())? '1' : '0';
+            $post->author_id= Auth::id();
             $post->cat_id= $request->cat_id;
             $post->details= $request->details;
             $post->tags= $request->tags;
             $post->image= $imageUrl;
             $post->pdf= $pdfUrl;
             $post->status= $request->status;
+            $post->selected= $request->selected;
             $post->save();
+
+            $readpost = new ReadPost;
+            $readpost->post_id = $post->id;
+            $readpost->reading_count = 0;
+            $readpost->save();
+
+            $like = New Like;
+            $like->post_id = $post->id;
+            $like->like = '0';
+            $like->save();
 
             if(Auth::guard('web')->check()){
                 Session::flash('success', 'Your Post Store Successfully. Wait For Admin Aproval');
@@ -83,14 +97,19 @@ class PostController extends Controller
     }
     
 
-    public function view()
-    {
+    public function view($post)
+    {   
+        $post = Post::findOrFail($id);
     	return view('admin.post.view');
     }
 
-    public function userView()
+    public function userView($id)
     {
-        return view('admin.post.view');
+        $post = Post::findOrFail($id);
+        if($post->author_id != Auth::id()){
+            return redirect()->route('blog.index')->with('warning','You Are Not Author This post');
+        }
+        return view('user.post.view',['post'=>$post]);
     }
 
     public function edit($id)
@@ -101,8 +120,13 @@ class PostController extends Controller
     }
 
     public function userEdit($id)
-    {
-        return view('admin.post.edit');
+    {   
+        $post = Post::findOrFail($id);
+        if($post->author_id != Auth::id()){
+            return redirect()->route('blog.index')->with('warning','You Are Not Author This post');
+        }
+        $categories = Category::all();
+        return view('user.post.edit',['categories'=>$categories,'post'=>$post]);
     }
 
     public function update(Request $request)
@@ -142,6 +166,7 @@ class PostController extends Controller
             $post->details= $request->details;
             $post->tags= $request->tags;
             $post->status= $request->status;
+            $post->selected= $request->selected;
             $post->save();
 
             if(Auth::guard('web')->check()){
@@ -156,9 +181,21 @@ class PostController extends Controller
         return redirect()->back()->withInputs($request->all())->withErrors($report);
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy( $id)
+    {   
+        $post = Post::findOrFail($id);
         
+        if(Auth::guard('web')->check() && $post->author_id != Auth::id()){
+            return redirect()->route('blog.index')->with('warning','You Are Not Author This post');
+        }
+        $post->delete();
+        Session::flash('success', 'Your Post delete Successfully.');
+        return redirect()->back();
+    }
+
+    public function selected_action(Request $request)
+    {
+        dd($request->all());
     }
 
     // file uplode in folder function

@@ -47,6 +47,27 @@
 </section>
 
 
+<div id="modal_comment_login" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+            </div>
+
+            <div class="modal-body">
+                <h6 class="text-semibold">আপনাকে প্রথমে লগইন করতে হবে...</h6>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">OK</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Footer -->
 @include('front.includes.footer')
 
@@ -55,6 +76,7 @@
 <script src="{{ asset('public/front/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('public/front/js/bootstrap.min.js') }}"></script>
 
+@yield('extra_script')
 </body>
 
 </html>

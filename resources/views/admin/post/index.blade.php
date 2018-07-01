@@ -9,6 +9,7 @@
 
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/core/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/datatables_extension_colvis.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/form_layouts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/ui/ripple.min.js') }}"></script>
  <!-- /Theme JS files -->
 @endsection
@@ -18,32 +19,48 @@
 <!-- Content area -->
 <div class="content">
 <!-- Orders history (datatable) -->
+<form action="{{ route('post.selected.action') }}" method="POST">{{ csrf_field()}}
     <div class="panel panel-white">
         <div class="panel-heading">
             <h6 class="panel-title">User List</h6>
-            <div class="heading-elements">
-                
-                <a href="{{ route('post.create') }}" class="btn btn-sm btn-info"><i class=" icon-add"></i> New Post</a>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-3">
+                <div class="form-group">
+                    
+                    <select name="action"  data-placeholder="Select Post Status"  class="select">
+                        <option value="0">Unpublish</option>
+                        <option value="1">publish</option>
+                        <option value="2">Selected Post</option>
+                    </select>
+                </div>
             </div>
+            <button class="btn btn-sm btn-info" type="submit">Submit</button>
+            <a href="{{ route('post.create') }}" class="btn btn-sm btn-info pull-right"><i class=" icon-add"></i> New Post</a>
+
         </div>
 
         <table class="table datatable-colvis-state text-nowrap">
             <thead>
                 <tr>
-                    
+                    <th></th>
                     <th>Post Title</th>
                     <th>Categoty</th>
                     <th>Like</th>
                     <th>Comment</th>
-                    <th>Ratting</th>
+                    <th>Reading</th>
                     <th>Status</th>
-                    <th class="text-center"><i class="icon-arrow-down12"></i></th>
+                    <th class="text-center"><i class="icon-arrow-down12"></i> Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($posts as $post)
                 <tr>
-                   
+                   <td><label class="checkbox-inline">
+                            <input type="checkbox" class="styled" name="selected[]" value="{{ $post->id }}">
+                            
+                        </label>
+                    </td>
                     <td>
                         <div class="media">
                             <a href="#" class="media-left">
@@ -55,16 +72,16 @@
                                 <a href="{{ route('post.view', $post->id) }}" class="text-semibold">{{ $post->title }}</a>
                                 <div class="text-muted text-size-small">
                                     <i class="icon-user-plus text-info position-left"></i>
-                                    {{ ($post->author_id == 0)?'Admin': $post->author->name }}
+                                    {{ ($post->author_type == 0)?'Admin': $post->author->name }}
                                 </div>
                             </div>
                         </div>
                     </td>
                     <td>{{ $post->category->cat_title }}</td>
                     
-                    <td> 50</td>
-                    <td>10</td>
-                    <td>4.8</td>
+                    <td>{{ $post->like->like }}</td>
+                    <td>{{ count($post->comments) }}</td>
+                    <td>{{$post->reading->reading_count}}</td>
                     <td>
                         @if($post->status == 1)
                             <label class="label label-success">Publish</label>
@@ -73,10 +90,21 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <ul class="list-inline">
-                          <li class="list-inline-item"><a href="{{ route('post.view', $post->id) }}" title="View Post" class="label label-info"><i class="icon-eye"></i></a></li>
-                          <li class="list-inline-item"><a href="{{ route('post.edit', $post->id) }}" title="Edit Post" class="label label-primary"><i class="icon-pencil7"></i></a></li>
-                          <li class="list-inline-item"><a href="{{ route('post.destroy', $post->id) }}" title="Delete Post" class="label label-danger"><i class="icon-trash"></i></a></li>
+                        <ul class="icons-list">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li ><a href="{{ route('post.view', $post->id) }}" title="View Post" ><i class="icon-eye"></i> View Post</a></li>
+                                    <li><a href="{{ route('post.edit', $post->id) }}" title="Edit Post" ><i class="icon-pencil7"></i> Edit Post</a></li>
+                                    <li ><a href="{{ route('post.destroy', $post->id) }}" title="Delete Post" ><i class="icon-trash"></i> Delete Post</a></li>
+                                      
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul >
                           
                         </ul>
                     </td>
@@ -86,7 +114,7 @@
         </table>
     </div>
     <!-- /orders history (datatable) -->
-
+</form>
 
 </div>
 <!-- /content area -->

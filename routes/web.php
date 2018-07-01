@@ -13,10 +13,13 @@
 
 Route::get('/','FrontEndController@index')->name('index');
 Route::get('/blogs','FrontEndController@blogs')->name('blogs');
+Route::get('/selected/blogs','FrontEndController@selected_posts')->name('selected.posts');
 Route::get('/singel/{id}','FrontEndController@singelBlog')->name('blog');
-Route::get('/profile/{id}','FrontEndController@profile')->name('profile');
+Route::get('/profile/{id}/{type}','FrontEndController@profile')->name('profile');
 
 Auth::routes();
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::prefix('user')->group(function(){
     Route::post('register', 'Auth\RegisterController@shopRegister');
@@ -26,7 +29,11 @@ Route::prefix('user')->group(function(){
 	Route::get('/home', 'HomeController@index')->name('user.dashboard');
 });
 Route::group([ 'prefix' => 'user' ,'middleware'=>['auth:web']], function() {
+	Route::post('comment','CommentController@comment')->name('comment');
+	Route::post('reply','CommentController@reply')->name('reply');
 
+	Route::get('like/{post_id}/{action}/','FrontEndController@like_dislike')->name('like');
+	
 	Route::prefix('blog')->name('blog.')->group(function(){
 		Route::get('/', 'PostController@userIndex')->name('index');
 		Route::get('/create', 'PostController@userCreate')->name('create');
@@ -73,6 +80,7 @@ Route::group([ 'prefix' => 'admin' ,'middleware'=>['auth:admin']], function() {
 		Route::get('/{id}', 'PostController@view')->name('view');
 		Route::get('/edit/{id}', 'PostController@edit')->name('edit');
 		Route::post('/update', 'PostController@update')->name('update');
+		Route::post('/selected/action', 'PostController@selected_action')->name('selected.action');
 		Route::get('/delete/{id}', 'PostController@destroy')->name('destroy');
 	});
 

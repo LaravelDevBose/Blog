@@ -42,7 +42,9 @@
 
         <!-- Main content -->
         <div class="content-wrapper">
-
+            <div class="content">
+                @include('admin.includes.message')
+            </div>
             @yield('content')
         </div>
         <!-- /main content -->
