@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\Like;
 use Session;
 use Auth;
 use App\ReadPost;
@@ -97,7 +98,7 @@ class PostController extends Controller
     }
     
 
-    public function view($post)
+    public function view($id)
     {   
         $post = Post::findOrFail($id);
     	return view('admin.post.view');

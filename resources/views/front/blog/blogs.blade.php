@@ -28,7 +28,7 @@
                 <div class="card-body">
                     <a href="{{ route('blog', $post->id) }}"><h5 class="card-title">{{ $post->title }}</h5></a>
                     <a href="{{ route('profile',['author_id'=> $post->author_id, 'author_type'=>$post->author_type]) }}" class="blog-writer">লেখকঃ- <span><?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></span></a>
-                    <p class="card-text">{!! $post->details !!}</p>
+                    <p class="card-text">{!! substr($post->details, 0 ,200) !!} ....</p>
                     <a href="{{ route('blog', $post->id) }}" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
                 </div>
                 <div class="blog-footer">
@@ -99,7 +99,7 @@
             <div class="col-md-12">
                 <div class="this-week-post">
                     <div class="this-week-post-heading">
-                        <h5>জনপ্রিয় কবিতা গুলো</h5>
+                        <h5>সর্বোচ পঠিত পোস্ট গুলো </h5>
                     </div>
                     <ul>
                         @foreach($most_read_posts as $read_post)

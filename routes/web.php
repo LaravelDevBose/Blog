@@ -1,22 +1,14 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/','FrontEndController@index')->name('index');
 Route::get('/blogs','FrontEndController@blogs')->name('blogs');
 Route::get('/selected/blogs','FrontEndController@selected_posts')->name('selected.posts');
+Route::get('/category', 'FrontEndController@bolgCategoryView')->name('category');
+Route::get('/blog/category/{cat_id}', 'FrontEndController@category_wise_blog')->name('blog.category');
 Route::get('/singel/{id}','FrontEndController@singelBlog')->name('blog');
 Route::get('/profile/{id}/{type}','FrontEndController@profile')->name('profile');
 
+Route::get('/like/blogs', 'FrontEndController@mostlikeAllBlogs')->name('like.blogs');
 Auth::routes();
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

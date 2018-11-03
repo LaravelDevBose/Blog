@@ -78,7 +78,7 @@
                             <div class="card-body">
                                 <a href="{{ route('blog', $post->id) }}"><h5 class="card-title">{{ $post->title }}</h5></a>
                                 <a href="{{ route('profile',['id'=> $post->author_id, 'type'=>$type]) }}" class="blog-writer">লেখকঃ- <span>{{ $author_info->name }}</span></a>
-                                <p class="card-text">{!! $post->details !!}</p>
+                                <p class="card-text">{!! substr($post->details, 0 ,200) !!} ....</p>
                                 <a href="{{ route('blog', $post->id) }}" class="text-info pull-right blog-link">বাকিটুকু পড়ুন...</a>
                             </div>
                             <div class="blog-footer">

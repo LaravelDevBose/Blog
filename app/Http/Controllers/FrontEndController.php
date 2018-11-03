@@ -11,6 +11,7 @@ use App\User;
 use App\Like;
 use App\Comment;
 use App\ReadPost;
+use App\Category;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
@@ -40,6 +41,21 @@ class FrontEndController extends Controller
         return view('front.blog.blogs',['header'=>$header,'posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
     }
 
+    public function bolgCategoryView(){
+        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
+        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
+        $categories = Category::where('cat_status',1)->orderBy('id', 'desc')->get();
+        return view('front.category.category_list', compact('categories','most_like_posts','most_read_posts'));
+    }
+
+    public function category_wise_blog($cat_id){
+        $cat_title = Category::where('id', $cat_id)->where('cat_status',1)->first()->value('cat_title');
+        $header = ucwords($cat_title).' - এর সকল পোস্ট';
+        $posts = Post::where('cat_id', $cat_id)->where('status', 1)->orderBy('id','desc')->paginate('40');
+        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
+        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
+        return view('front.blog.blogs',['header'=>$header,'posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
+    }
     public function singelBlog($id)
     {   
         $post = Post::findOrFail($id);
@@ -78,6 +94,18 @@ class FrontEndController extends Controller
 
     	return view('front.profile.profile',['type'=>$type,'author_info'=>$author_info, 'author_posts'=>$author_posts,
                       'total_comment_take'=>$total_comment_take ,'most_read_posts'=>$most_read_posts ]);
+    }
+
+    public function mostlikeAllBlogs(){
+        $header =' সকল জনপ্রিয় পোস্ট গুলো';
+        $posts = DB::table('posts')
+            ->join('likes', 'posts.id', '=', 'likes.post_id')
+            ->select('posts.*', 'likes.like')
+            ->orderBy('likes.like', 'desc')
+            ->get();
+        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
+        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
+        return view('front.blog.blogs',['header'=>$header,'posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
     }
 
     public function like_dislike($post_id, $action)

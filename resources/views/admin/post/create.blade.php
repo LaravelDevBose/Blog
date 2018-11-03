@@ -80,7 +80,7 @@
 									<div class="form-group">
 		
 			                            <label class="checkbox-inline">
-											<input type="checkbox" class="styled" name="selected">
+											<input type="checkbox" class="styled" value="1" name="selected">
 											নির্বাচিত পোস্ট
 										</label>
 										

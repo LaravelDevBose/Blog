@@ -76,8 +76,8 @@
                                 <li class="nav-item {{ (Route::currentRouteName() =='selected.posts') ? 'active': ' ' }}">
                                     <a class="nav-link" href="{{ route('selected.posts') }}">নির্বাচিত পোস্ট</a>
                                 </li>
-                                <li class="nav-item {{ (Route::currentRouteName() =='selected.posts') ? 'active': ' ' }}">
-                                    <a class="nav-link" href="{{ route('selected.posts') }}">বিষয় ভিত্তিক ব্লগ</a>
+                                <li class="nav-item {{ (Route::currentRouteName() =='category') ? 'active': ' ' }}">
+                                    <a class="nav-link" href="{{ route('category') }}">বিষয় ভিত্তিক ব্লগ</a>
                                 </li>
                             </ul>
 

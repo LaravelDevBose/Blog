@@ -7,7 +7,7 @@
                     <a class="list-group-item list-group-item-action  {{ (Route::currentRouteName() =='index') ? 'active': ' ' }}"  href="{{ route('index') }}" ><i class="fas fa-home"></i> প্রথম পাতা</a>
                     <a class="list-group-item list-group-item-action {{ (Route::currentRouteName() =='blogs') ? 'active': ' ' }}" href="{{ route('blogs') }}" > <i class="fas fa-list"></i> সকল পোস্ট</a>
                     <a class="list-group-item list-group-item-action {{ (Route::currentRouteName() =='selected.posts') ? 'active': ' ' }}"  href="{{ route('selected.posts') }}"><i class="fas fa-tasks"></i> নির্বাচিত পোস্ট</a>
-                    <a class="list-group-item list-group-item-action"  href="#" ><i class="fas fa-list-ol"></i> বিষয় ভিত্তিক ব্লগ</a>
+                    <a class="list-group-item list-group-item-action {{ (Route::currentRouteName() =='category') ? 'active': ' ' }}"  href="{{ route('category') }}" ><i class="fas fa-list-ol"></i> বিষয় ভিত্তিক ব্লগ</a>
                     <a class="list-group-item list-group-item-action"  href="#" ><i class="far fa-clipboard"></i> নোটিশ বোর্ড</a>
                 </div>
                 <div class="sidebar-login">
