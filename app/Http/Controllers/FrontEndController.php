@@ -19,42 +19,33 @@ class FrontEndController extends Controller
     public function index()
     {   
         $posts = Post::where('status', 1)->orderBy('id','desc')->paginate('15');
-        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
-        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
-    	return view('front.home.index',['posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
+
+    	return view('front.home.index',['posts'=>$posts]);
     }
 
     public function blogs()
     {   
         $header = ' সকল পোস্ট';
         $posts = Post::where('status', 1)->orderBy('id','desc')->paginate('40');
-        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
-        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
-    	return view('front.blog.blogs',['header'=>$header,'posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
+    	return view('front.blog.blogs',['header'=>$header,'posts'=>$posts]);
     }
     public function selected_posts()
     {   
         $header = 'ির্বাচিত পোস্ট সমূহ';
         $posts = Post::where('status', 1)->where('selected',1)->orderBy('id','desc')->paginate('15');
-        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
-        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
-        return view('front.blog.blogs',['header'=>$header,'posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
+        return view('front.blog.blogs',['header'=>$header,'posts'=>$posts]);
     }
 
     public function bolgCategoryView(){
-        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
-        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
         $categories = Category::where('cat_status',1)->orderBy('id', 'desc')->get();
-        return view('front.category.category_list', compact('categories','most_like_posts','most_read_posts'));
+        return view('front.category.category_list', compact('categories'));
     }
 
     public function category_wise_blog($cat_id){
         $cat_title = Category::where('id', $cat_id)->where('cat_status',1)->first()->value('cat_title');
         $header = ucwords($cat_title).' - এর সকল পোস্ট';
         $posts = Post::where('cat_id', $cat_id)->where('status', 1)->orderBy('id','desc')->paginate('40');
-        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
-        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
-        return view('front.blog.blogs',['header'=>$header,'posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
+        return view('front.blog.blogs',['header'=>$header,'posts'=>$posts]);
     }
     public function singelBlog($id)
     {   
@@ -98,14 +89,14 @@ class FrontEndController extends Controller
 
     public function mostlikeAllBlogs(){
         $header =' সকল জনপ্রিয় পোস্ট গুলো';
-        $posts = DB::table('posts')
-            ->join('likes', 'posts.id', '=', 'likes.post_id')
-            ->select('posts.*', 'likes.like')
-            ->orderBy('likes.like', 'desc')
-            ->get();
-        $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
-        $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
-        return view('front.blog.blogs',['header'=>$header,'posts'=>$posts,'most_like_posts'=>$most_like_posts,'most_read_posts'=>$most_read_posts]);
+        $populer_blogs = Like::orderBy('like', 'desc')->get();
+        return view('front.blog.populer_blogs',['header'=>$header,'populer_blogs'=>$populer_blogs]);
+    }
+
+    public function mostReadAllBlogs(){
+        $header ='সর্বোচ পঠিত পোস্ট গুলো';
+        $populer_blogs = ReadPost::orderBy('reading_count', 'desc')->get();
+        return view('front.blog.populer_blogs',['header'=>$header,'populer_blogs'=>$populer_blogs]);
     }
 
     public function like_dislike($post_id, $action)

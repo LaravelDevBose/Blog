@@ -53,7 +53,7 @@
                             <li><a href="{{ route('index') }}"><i class="fas fa-angle-double-right"></i> প্রথম পাতা</a></li>
                             <li><a href="{{ route('blogs') }}"><i class="fas fa-angle-double-right"></i> সকল পোস্ট</a></li>
                             <li><a href="{{ route('selected.posts') }}"><i class="fas fa-angle-double-right"></i> নির্বাচিত পোস্ট</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i> বিষয় ভিত্তিক ব্লগ</a></li>
+                            <li><a href="{{ route('category') }}"><i class="fas fa-angle-double-right"></i> বিষয় ভিত্তিক ব্লগ</a></li>
                             <li><a href="#"><i class="fas fa-angle-double-right"></i> নোটিশ বোর্ড</a></li>
 
                         </ul>

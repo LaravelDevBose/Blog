@@ -86,7 +86,7 @@ class PostController extends Controller
             $like->save();
 
             if(Auth::guard('web')->check()){
-                Session::flash('success', 'Your Post Store Successfully. Wait For Admin Aproval');
+                Session::flash('success', 'Your Post Store Successfully. Wait For Admin Approval');
             }else{
                 Session::flash('success', 'Your Post Store Successfully.');
             }

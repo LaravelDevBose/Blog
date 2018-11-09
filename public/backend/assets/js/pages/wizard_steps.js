@@ -25,7 +25,7 @@ $(function() {
             finish: 'Submit'
         },
         onFinished: function (event, currentIndex) {
-            alert("Form submitted ddd.");
+            alert("Form submitted.");
         }
     });
 

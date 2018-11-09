@@ -42,7 +42,8 @@
                  
                     
                     <li  class="{{ (Request::route()->getPrefix() =='admin/category') ? 'active': ' ' }}"><a href="{{ route('category.index') }}"><i class="icon-list"></i> <span>Category</span></a></li>
-                    <li class="{{ (Request::route()->getPrefix() =='admin/post') ? 'active': ' ' }}"><a href="{{ route('post.index') }}"><i class=" icon-books"></i> <span>View Post</span></a></li>
+                    <li class="{{ (Request::route()->getPrefix() =='admin/post') ? 'active': ' ' }}"><a href="{{ route('post.index') }}"><i class=" icon-books"></i> <span>Post</span></a></li>
+                    <li class="{{ (Request::route()->getPrefix() =='admin/notice') ? 'active': ' ' }}"><a href="{{ route('notice.index') }}"><i class=" icon-books"></i> <span>Notice</span></a></li>
                     <li class="{{ (Request::route()->getPrefix() =='admin/user') ? 'active': ' ' }}"><a href="{{ route('user.index') }}"><i class=" icon-users4"></i> <span>User List</span></a></li>
                     <li class="{{ (Route::currentRouteName() =='siteSetting') ? 'active': ' ' }}"><a href="{{ route('siteSetting') }}"><i class="icon-cogs"></i> <span>Site Setting</span></a></li>
                     <!-- /main -->

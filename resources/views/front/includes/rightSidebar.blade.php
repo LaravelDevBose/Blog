@@ -2,10 +2,10 @@
     <div class="row">
         <div class="col-md-12 ">
             <div class="add-right-sidebar">
-
+            
             </div>
         </div>
-
+    
     </div>
     <div class="row">
         <div class="right-sidebar">
@@ -15,98 +15,58 @@
                         <h5>জনপ্রিয় কবিতা গুলো</h5>
                     </div>
                     <ul>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
+                        @foreach($most_like_posts as $like_post)
+                            <?php $post = $like_post->post; ?>
+                            @if($post->status == 1)
+                                <li >
+                                    <a href="{{route('blog',$post->id) }}" >
+                                        @if(!is_null($post->image))
+                                            <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                        @endif
+                                        <p>{{ $post->title }}
+                                            <label>লেখকঃ- <span><?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></span></label>
+                                        </p>
+                                    
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                     <div class="popular-post-footer">
-                        <a href="" >সবগুলো পড়ুন ..</a>
+                        <a href="{{ route('like.blogs') }}">সবগুলো পড়ুন ..</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="this-week-post">
                     <div class="this-week-post-heading">
-                        <h5>জনপ্রিয় কবিতা গুলো</h5>
+                        <h5>সর্বোচ পঠিত পোস্ট গুলো </h5>
                     </div>
                     <ul>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#" >
-                                <img src="img/post-sample-image.jpg" alt="">
-                                <p>this is a demo blog title only for design porpose
-                                    <label>লেখকঃ- <span>তন্ময় সাহা</span></label>
-                                </p>
-
-                            </a>
-                        </li>
+                        @foreach($most_read_posts as $read_post)
+                            <?php $post = $read_post->post; ?>
+                            @if($post->status == 1)
+                                <li >
+                                    <a href="{{route('blog',$post->id) }}" >
+                                        @if(!is_null($post->image))
+                                            <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                        @endif
+                                        <p>{{ $post->title }}
+                                            <label>লেখকঃ- <span><?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></span></label>
+                                        </p>
+                                    
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                     <div class="this-week-pos-footer">
-                        <a href="" >সবগুলো পড়ুন ..</a>
+                        <a href="{{ route('read.blogs') }}">সবগুলো পড়ুন ..</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-12"></div>
         </div>
-
+    
     </div>
-    </div>
+</div>

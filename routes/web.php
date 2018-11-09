@@ -8,7 +8,8 @@ Route::get('/blog/category/{cat_id}', 'FrontEndController@category_wise_blog')->
 Route::get('/singel/{id}','FrontEndController@singelBlog')->name('blog');
 Route::get('/profile/{id}/{type}','FrontEndController@profile')->name('profile');
 
-Route::get('/like/blogs', 'FrontEndController@mostlikeAllBlogs')->name('like.blogs');
+Route::get('/most/like/blogs', 'FrontEndController@mostlikeAllBlogs')->name('like.blogs');
+Route::get('/most/read/blogs', 'FrontEndController@mostReadAllBlogs')->name('read.blogs');
 Auth::routes();
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
@@ -75,6 +76,19 @@ Route::group([ 'prefix' => 'admin' ,'middleware'=>['auth:admin']], function() {
 		Route::post('/selected/action', 'PostController@selected_action')->name('selected.action');
 		Route::get('/delete/{id}', 'PostController@destroy')->name('destroy');
 	});
+
+    Route::prefix('notice')->name('notice.')->group(function(){
+        Route::get('/', 'NoticeController@index')->name('index');
+        Route::get('/create', 'NoticeController@create')->name('create');
+        Route::post('/store', 'NoticeController@store')->name('store');
+        Route::get('/view/{id}', 'NoticeController@view')->name('view');
+        Route::get('/edit/{id}', 'NoticeController@edit')->name('edit');
+        Route::post('/update', 'NoticeController@update')->name('update');
+        Route::get('/delete/{id}', 'NoticeController@destroy')->name('destroy');
+    });
+
+//
+//	Route::prefix('notice')->Resource('notice', 'NoticeController');
 
 	Route::prefix('user')->name('user.')->group(function(){
 		Route::get('/', 'UserController@index')->name('index');

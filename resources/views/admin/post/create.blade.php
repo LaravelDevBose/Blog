@@ -2,7 +2,7 @@
 @section('title', 'Create Post')
 @section('asset')
 
-	<script type="text/javascript" src="{{ asset('public/backend/assets/ckeditor/ckeditor.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/editors/summernote/summernote.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
 
@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="{{ asset('public/backend/assets/js/core/app.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/form_layouts.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/ui/ripple.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/editor_ckeditor.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/editor_summernote.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/form_controls_extended.js') }}"></script>
 	<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 @endsection
@@ -63,7 +63,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label>Description: <span class="text-bold text-danger">*</span></label>
-										<textarea name="details" id="editor-full" rows="4" cols="4" minlength="20" maxlength="2500" placeholder="Enter Your Post Details.....">{{ old('details') }}</textarea>
+										<textarea name="details" class="summernote-height" maxlength="2500" placeholder="Enter Your Post Details.....">{{ old('details') }}</textarea>
 										<span class="help-block">Product Details (Max 2500 characters)</span>
 									</div>
 								</div>

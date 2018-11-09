@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 use App\Setting;
+use App\ReadPost;
 use App\Post;
+use App\Like;
 use View;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,6 +43,13 @@ class AppServiceProvider extends ServiceProvider
             $selected_posts = Post::where('status', 1)->where('selected',1)->orderBy('id','desc')->take('5')->get();
             $view->with('selected_posts', $selected_posts);
                  
+        });
+
+        view::composer('front.includes.rightSidebar', function($view){
+            $most_like_posts = Like::orderBy('like', 'desc')->take('5')->get();
+            $most_read_posts = ReadPost::orderBy('reading_count', 'desc')->take('5')->get();
+            $view->with('most_like_posts', $most_like_posts)->with('most_read_posts', $most_read_posts);
+
         });
     }
 
