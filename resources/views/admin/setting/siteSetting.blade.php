@@ -97,8 +97,40 @@
 							<hr>
 						</div>
 
+						<div class="form-group">
+							<div class="row" style="margin-bottom:  10px;">
+								<div class="col-lg-3">
+									<label class=" control-label text-bold">Banner:</label>
+								</div>
+								<div class="col-lg-7">
+                                    <?php if(!file_exists($banner)){$banner ='public/backend/assets/images/placeholder.jpg'; }?>
+									<img src="{{ asset($banner) }}" style="width: 100%; height: 120px;" class="" alt="">
+								</div>
 
-						
+								<div class="col-lg-2">
+									<label class="text-info" title="Edit" onclick="viewToggle('banner')"> <i class="icon-pencil5"></i></label>
+								</div>
+
+							</div>
+
+							<div class="row" id="banner" style="display: none;">
+								<div class="col-lg-offset-3" >
+									<form  action="{{ route('banner') }}" method="post" enctype="multipart/form-data">
+										{{ csrf_field()}}
+
+										<div class="col-lg-7 ">
+											<input type="file" class="file-styled" name="banner" accept="image/*">
+											<span class="help-block">Accepted formats: gif, png, jpg. Max file size 1Mb</span>
+										</div>
+
+										<div class="col-lg-2 col-lg-offset-2">
+											<button type="submit" class="btn btn-primary banner_submit">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<hr>
+						</div>
 
 						<div class="form-group">
 							<div class="row" style="margin-bottom:  10px;">

@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         view::composer('*', function($view){
             $siteName = setting::where('setting_key', 'siteName')->value('setting_value');
             $logo = setting::where('setting_key', 'logo')->value('setting_value');
+            $banner = setting::where('setting_key', 'banner')->value('setting_value');
             $aboutUs = setting::where('setting_key', 'aboutUs')->value('setting_value');
             $address = setting::where('setting_key', 'address')->value('setting_value');
             $phoneNo = setting::where('setting_key', 'phoneNo')->value('setting_value');
@@ -30,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('siteName', $siteName)
                  ->with('logo', $logo)
+                 ->with('banner', $banner)
                  ->with('address', $address)
                  ->with('phoneNo', $phoneNo)
                  ->with('email', $email)

@@ -189,9 +189,15 @@
     border: none;
     background-color: #f7f7f79c;
 }
+.side-menu .active{
+    border: none;
+    background-color: #8485ef8a;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .side-menu a:hover{
     border: none;
-    background-color: #f1f1f1;
+    background-color: #8485ef8a;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .side-menu a i{
     font-size: 1.3rem;
@@ -458,13 +464,17 @@
 .home-blog .card-body{
     padding: 1rem;
 }
+.home-blog a{
+    text-decoration: none;
+}
+
 .home-blog a h5{
     color: #097688;
     font-size: 1.2rem;;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    line-height: 18px;
+    line-height: 30px;
     font-weight: 600;
     margin-bottom: 3px;
 }
@@ -512,12 +522,12 @@
     padding: 15px 15px;
     margin: 0;
     text-align: center;
-    background: #85bdf9;
+    background: #237fe2b8;
 }
 .page-title h5{
     margin: 0;
     padding: 0;
-    color: #9328f5;
+    color: #ffffff;
     font-size: 1.2rem;
     font-weight: 600;
 }

@@ -32,8 +32,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="banner">
-                    <img src="http://s3.amazonaws.com/somewherein/pictures/CongratulationsTigers2015bannerNew.jpg"
-                         class="img-fluid" alt="">
+                    <?php if(!file_exists($banner)){$banner ='public/front/img/blog-banner.jpg'; }?>
+                    <img src="{{ asset($banner) }}" class="img-fluid" alt="" style="max-height: 200px; width: 100%;">
                 </div>
                 @include('admin.includes.message')
             </div>

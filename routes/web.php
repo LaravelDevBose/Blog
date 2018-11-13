@@ -7,6 +7,10 @@ Route::get('/category', 'FrontEndController@bolgCategoryView')->name('category')
 Route::get('/blog/category/{cat_id}', 'FrontEndController@category_wise_blog')->name('blog.category');
 Route::get('/singel/{id}','FrontEndController@singelBlog')->name('blog');
 Route::get('/profile/{id}/{type}','FrontEndController@profile')->name('profile');
+Route::get('/all/notice','FrontEndController@all_notice')->name('notice.list');
+Route::get('/notice/read/{id}','FrontEndController@read_notice')->name('notice.read');
+
+
 
 Route::get('/most/like/blogs', 'FrontEndController@mostlikeAllBlogs')->name('like.blogs');
 Route::get('/most/read/blogs', 'FrontEndController@mostReadAllBlogs')->name('read.blogs');
@@ -87,8 +91,11 @@ Route::group([ 'prefix' => 'admin' ,'middleware'=>['auth:admin']], function() {
         Route::get('/delete/{id}', 'NoticeController@destroy')->name('destroy');
     });
 
-//
-//	Route::prefix('notice')->Resource('notice', 'NoticeController');
+    Route::prefix('ads')->name('ads.')->group(function (){
+        Route::get('/','AdvertisementController@index')->name('index');
+        Route::post('/store','AdvertisementController@store')->name('store');
+        Route::get('/delete/{id}', 'AdvertisementController@delete')->name('delete');
+    });
 
 	Route::prefix('user')->name('user.')->group(function(){
 		Route::get('/', 'UserController@index')->name('index');
@@ -100,6 +107,7 @@ Route::group([ 'prefix' => 'admin' ,'middleware'=>['auth:admin']], function() {
 		Route::get('/siteName/{siteName}', 'SettingController@siteName');
 		Route::get('/phoneNo/{phoneNo}', 'SettingController@phoneNo');
 		Route::post('/logo', 'SettingController@siteLogo')->name('siteLogo');
+		Route::post('/banner', 'SettingController@banner')->name('banner');
 		Route::post('/aboutUs', 'SettingController@aboutUs');
 		Route::post('/address', 'SettingController@address');
 		Route::get('/email/{email}', 'SettingController@email');

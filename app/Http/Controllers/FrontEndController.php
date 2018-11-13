@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notice;
 use DB;
 use Auth;
 use Session;
@@ -19,8 +20,8 @@ class FrontEndController extends Controller
     public function index()
     {   
         $posts = Post::where('status', 1)->orderBy('id','desc')->paginate('15');
-
-    	return view('front.home.index',['posts'=>$posts]);
+        $imprt_notice = Notice::where('priority','1')->where('status','1')->orderBy('created_at', 'desc')->limit(5)->get();
+    	return view('front.home.index',['posts'=>$posts,'imprt_notice'=>$imprt_notice]);
     }
 
     public function blogs()
@@ -85,6 +86,17 @@ class FrontEndController extends Controller
 
     	return view('front.profile.profile',['type'=>$type,'author_info'=>$author_info, 'author_posts'=>$author_posts,
                       'total_comment_take'=>$total_comment_take ,'most_read_posts'=>$most_read_posts ]);
+    }
+
+    public function all_notice(){
+        $header =' সকল বিজ্ঞপ্তি গুলো';
+        $notices = Notice::where('status', 1)->orderBy('priority', 'asc')->orderBy('created_at', 'desc')->get();
+        return view('front.notice.all_notice',compact('header','notices'));
+    }
+
+    public function read_notice($id= Null){
+        $notice = Notice::findOrFail($id);
+        return view('front.notice.single_notice',compact('notice') );
     }
 
     public function mostlikeAllBlogs(){

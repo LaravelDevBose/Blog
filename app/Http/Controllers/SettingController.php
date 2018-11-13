@@ -23,15 +23,46 @@ class SettingController extends Controller
     	return $siteName;
     }
 
-    public function siteLogo(Request $request)
+    public function banner(Request $request)
     {	
-    	$fileInfo = $request->file('logo');
+    	$fileInfo = $request->file('banner');
     	//Get Image name
         $fileName =$fileInfo->getClientOriginalName();
         $move_file = explode('.',$fileName);
-        $fileName = 'logo_'.$move_file[0].str_random(8).".".$move_file[1];
+        $fileName = 'banner_'.$move_file[0].str_random(8).".".$move_file[1];
         
         //Define Uplode path 
+        $uploadPath ='public/images/';
+
+        //move to Define folder and Check its pass to move
+        if($fileInfo->move($uploadPath, $fileName)){
+            //If pass return totel url to join uplodepath and fileName
+            $fileUrl = $uploadPath . $fileName;
+
+            $image = Setting::where('setting_key', 'banner')->value('setting_value');
+            if(file_exists($image)){
+                unlink($image);
+            }
+            Setting::updateOrCreate(['setting_key'=> 'banner'], ['setting_value'=>$fileUrl]);
+
+            Session::flash('success','Site Banner Uploaded Successfully');
+            return redirect()->back();
+        }else{
+            //If Fails return empty $fileUrl
+            Session::flash('unsuccess','Site Logo Not Uploaded Successfully');
+            return redirect()->back();
+        }
+    }
+
+    public function siteLogo(Request $request)
+    {
+        $fileInfo = $request->file('logo');
+        //Get Image name
+        $fileName =$fileInfo->getClientOriginalName();
+        $move_file = explode('.',$fileName);
+        $fileName = 'logo_'.$move_file[0].str_random(8).".".$move_file[1];
+
+        //Define Uplode path
         $uploadPath ='public/images/';
 
         //move to Define folder and Check its pass to move
