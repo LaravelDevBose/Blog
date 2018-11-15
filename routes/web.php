@@ -14,9 +14,12 @@ Route::get('/notice/read/{id}','FrontEndController@read_notice')->name('notice.r
 
 Route::get('/most/like/blogs', 'FrontEndController@mostlikeAllBlogs')->name('like.blogs');
 Route::get('/most/read/blogs', 'FrontEndController@mostReadAllBlogs')->name('read.blogs');
+
+
 Auth::routes();
-Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.login');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('subscribe/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.subscribe');
 
 Route::prefix('user')->group(function(){
     Route::post('register', 'Auth\RegisterController@shopRegister');
@@ -25,6 +28,8 @@ Route::prefix('user')->group(function(){
 
 	Route::get('/home', 'HomeController@index')->name('user.dashboard');
 });
+
+
 Route::group([ 'prefix' => 'user' ,'middleware'=>['auth:web']], function() {
 	Route::post('comment','CommentController@comment')->name('comment');
 	Route::post('reply','CommentController@reply')->name('reply');
@@ -94,7 +99,7 @@ Route::group([ 'prefix' => 'admin' ,'middleware'=>['auth:admin']], function() {
     Route::prefix('ads')->name('ads.')->group(function (){
         Route::get('/','AdvertisementController@index')->name('index');
         Route::post('/store','AdvertisementController@store')->name('store');
-        Route::get('/delete/{id}', 'AdvertisementController@delete')->name('delete');
+        Route::get('/delete/{setting_key}', 'AdvertisementController@destroy')->name('delete');
     });
 
 	Route::prefix('user')->name('user.')->group(function(){

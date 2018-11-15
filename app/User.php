@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','username','email','phoneNo', 'password','status','confirmed'
+        'name','username','email','phoneNo', 'bio','status','confirmed','avatar'
     ];
 
     /**
@@ -37,8 +37,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Comment', 'user_id', 'id');
     }
 
-    public function socialProvider()
-    {
-        return $this->hasMany('App\socialProvider', 'user_id', 'id');
+    function socialProviders(){
+        return $this->hasMany(SocialProvider::Class);
     }
 }

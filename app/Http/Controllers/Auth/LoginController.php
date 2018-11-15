@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 use Auth;
+use Route;
 use Session;
 use Socialite;
+use App\User;
+use App\Subscriber;
+use App\SocialProvider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -109,7 +113,8 @@ class LoginController extends Controller
      * @return Response
      */
     public function redirectToProvider($provider)
-    {   
+    {
+        Session::put('route_name',Route::currentRouteName());
         return Socialite::driver($provider)->redirect('/user/home');
     }
 
@@ -121,52 +126,55 @@ class LoginController extends Controller
      */
     public function handleProviderCallback($provider)
     {
-
-        $routeName = Session::get('socialRouteName');
-        
+        $routeName = Session::get('route_name');
 
         try
         {
             $socialUser = Socialite::driver($provider)->user();
-            
-            
-
-            // return '<img src="'.$socialUser->getAvatar().'">' ;
         }
         catch(\Exception $e)
         {
             return redirect()->back();
-
-        }
-        //check if we have logged provider
-        $socialProvider = SocialProvider::where('providerId',$socialUser->getId())->first();
-        if(!$socialProvider)
-        {
-            
-
-            //create a new user and provider
-            $user = User::firstOrCreate(['username'=>$socialUser->getName(),'name' => $socialUser->getName(), 'email' => $socialUser->getEmail()]);
-
-            User::where('id', $user->id)->update(['avater'=>$socialUser->getAvatar()]);
-
-            $user->socialProviders()->create(
-                ['providerId' => $socialUser->getId(), 'provider' => $provider]
-            );
-
-            $details= New ConsumerDetail;
-            $details->userId = $user->id;
-            $details->save();
-
-            $payment= New PaymentDetail;
-            $payment->userId = $user->id;
-            $payment->save();
-        }
-        else{
-            $user = $socialProvider->user;
         }
 
-        auth()->login($user);
-        return redirect('/consumer/home');
+        if($routeName == 'social.login'){
+            //check if we have logged provider
+            $socialProvider = SocialProvider::where('providerId',$socialUser->getId())->first();
+            if(!$socialProvider)
+            {
+                //create a new user and provider
+                $user = User::firstOrCreate([
+                    'username'=>preg_replace('/\s+/', '_', $socialUser->getName()),
+                    'name' => $socialUser->getName(),
+                    'email' => $socialUser->getEmail(),
+                    'status'=>1,
+                    'confirmed'=>1,
+                ]);
+
+                User::where('id', $user->id)->update(['avatar'=>$socialUser->getAvatar()]);
+
+                $user->socialProviders()->create(
+                    ['providerId' => $socialUser->getId(), 'provider' => $provider]
+                );
+
+            }
+            else{
+                $user = $socialProvider->user;
+            }
+
+            auth()->login($user);
+            return redirect('/user/home');
+        }else{
+            $subscriber = Subscriber::where('subscriber_email', $socialUser->getEmail())->first();
+
+            if(is_null($subscriber)){
+                Subcriber::create(['subscriber_email'=>$socialUser->getEmail(),'providerId' => $socialUser->getId(), 'provider' => $provider]);
+                return redirect('/')->with('success','Thank You For You Subscription');
+            }
+
+            return redirect('/')->with('warning','You Are Already Subscriber By Your '.$subscriber->provider.' Account');
+        }
+
 
     }
 }

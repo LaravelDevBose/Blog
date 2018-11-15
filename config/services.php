@@ -38,19 +38,19 @@ return [
     'facebook' => [
         'client_id' => '2097313277220989',         // Your GitHub Client ID
         'client_secret' => '4c1acadf4262e417724623f64bcb6a67', // Your GitHub Client Secret
-        'redirect' => 'http://localhost/auth/facebook/callback',
+        'redirect' => 'http://localhost/Blog/auth/facebook/callback',
     ],
 
     'twitter' => [
         'client_id' => 'SnzU3PQUzYq3oY0AsaEVy0ye4',         // Your GitHub Client ID
         'client_secret' => 'k42QDiZrCRp1NqbTqjP9rdEsmxxI0ZYYs6X2jtWtsEx6kSfBqY', // Your GitHub Client Secret
-        'redirect' => 'http://localhost/auth/twitter/callback',
+        'redirect' => 'http://localhost/Blog/auth/twitter/callback',
     ],
 
     'google' => [
         'client_id' => '650438412225-uhfgs1hs1h558rik73bfn674c4klcn64.apps.googleusercontent.com',         // Your GitHub Client ID
         'client_secret' => '5I2PkxSktAKpvnQbd_La3JXF', // Your GitHub Client Secret
-        'redirect' => 'http://localhost/auth/google/callback',
+        'redirect' => 'http://localhost/Blog/auth/google/callback',
     ],
 
 ];

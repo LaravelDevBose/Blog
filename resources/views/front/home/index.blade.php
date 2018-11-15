@@ -5,12 +5,13 @@
 @section('content')
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="row">
+        @if(isset($top_ads) && $top_ads)
         <div class="col-md-12">
             <div class="add-mid-body">
-
+                <img src="{{ asset($top_ads) }}" class="img-fluid" alt="Top Advertisement Image">
             </div>
         </div>
-
+        @endif
         <div class="col-md-12">
             <div class="page-title">
                 <h5>প্রথম পাতা  </h5>

@@ -3,10 +3,12 @@
 @section('asset')
     <!-- Theme JS files -->
 
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/media/fancybox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/core/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/form_layouts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/pages/gallery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/ui/ripple.min.js') }}"></script>
     <!-- /theme JS files -->
 @endsection
@@ -32,69 +34,69 @@
                 <div class="panel-body">
 
                     <div class="form-group  col-lg-4 " >
-                        <label>Advertisement Image: <span class="text-bold text-danger">*</span></label>
-                        <input type="file" class="file-styled" name="banner" accept="image/*">
+                        <label>Top Advertisement Image: <span class="text-bold text-danger">*</span></label>
+                        <input type="file" class="file-styled" name="top_ads" accept="image/*">
+                        <input type="hidden" name="old_top_ads" value="{{ $top_ads }}">
                         <span class="help-block">Accepted formats: gif, png, jpg. Max file size 1Mb</span>
                     </div>
-                    <div class="form-group col-lg-3">
-                        <label>Position: <span class="text-bold text-danger">*</span></label>
-                        <select class="select" required name="cat_status">
-                            <option value="0">Unpublished</option>
-                            <option value="1">Publish</option>
-                        </select>
+                    <div class="form-group  col-lg-4 " >
+                        <label>Right Side Advertisement Image: <span class="text-bold text-danger">*</span></label>
+                        <input type="file" class="file-styled" name="right_ads" accept="image/*">
+                        <input type="hidden" name="old_right_ads" value="{{ $right_ads }}">
+                        <span class="help-block">Accepted formats: gif, png, jpg. Max file size 1Mb</span>
                     </div>
-                    <div class="form-group col-lg-3">
-                        <label>Publication Status: <span class="text-bold text-danger">*</span></label>
-                        <select class="select" required name="cat_status">
-                            <option value="0">Unpublished</option>
-                            <option value="1">Publish</option>
-                        </select>
-                    </div>
-
                     <div class="form-group  col-lg-2" >
 
                         <button type="submit" style="margin-top: 27px" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button>
                     </div>
                 </div>
             </form>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Advertisement Image</th>
-                        <th>Position</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if(isset($categories) && $categories)
-                        @foreach($categories as $category)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td id="{{$category->cat_title}}">{{ $category->cat_title }}</td>
-                                <td id="{{$category->cat_status == 1}}">
-                                    @if($category->cat_status == 1)
-                                        <label class="label label-success">Publish</label>
-                                    @else
-                                        <label class="label label-warning">Un-Publish</label>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="#" id="{{ $category->id }}" class="btn btn-sm btn-info cat_edit" data-toggle="modal" data-target="#cat_edit_model"> <i class="icon-pencil7"></i></a>
-                                    <a href="{{ route('category.destroy', $category->id) }}" class="btn btn-sm btn-danger" > <i class="icon-trash"></i></a>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="thumb">
+                                <?php if(!file_exists($top_ads)){$top_ads ='public/backend/assets/images/no_available_image.gif'; }?>
+                                <img src="{{ asset($top_ads) }}" alt="Top Advertisement Image" style="min-height: 180px;" >
+                                <div class="caption-overflow">
+                                <span>
+                                    <a href="{{ asset($top_ads) }}" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
+                                </span>
+                                </div>
+                            </div>
 
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-                    </tbody>
-                </table>
+                            <div class="caption">
+                                <h6 class="no-margin">
+                                    <a href="#" class="text-default">Top Advertisement Image</a>
+                                    <a href="{{ route('ads.delete', 'top_ads') }}" class="text-danger" title="Delete Image"><i class="icon-trash pull-right"></i></a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="thumb">
+                                <?php if(!file_exists($right_ads)){$right_ads ='public/backend/assets/images/no_available_image.gif'; }?>
+                                <img src="{{ asset($right_ads) }}" alt="Top Advertisement Image" style="height: 180px;" >
+                                <div class="caption-overflow">
+                                <span>
+                                    <a href="{{ asset($right_ads) }}" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
+                                </span>
+                                </div>
+                            </div>
+
+                            <div class="caption">
+                                <h6 class="no-margin">
+                                    <a href="#" class="text-default">Right Advertisement Image</a>
+                                    <a href="{{ route('ads.delete', 'right_ads') }}" class="text-danger" title="Delete Image"><i class="icon-trash pull-right"></i></a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <!-- /both borders -->
-
     </div>
-
 @endsection

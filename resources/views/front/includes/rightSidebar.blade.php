@@ -1,12 +1,13 @@
 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 sidebar-left-border">
+    @if(isset($right_ads) && $right_ads && !is_null($right_ads))
     <div class="row">
         <div class="col-md-12 ">
             <div class="add-right-sidebar">
-            
+                <img src="{{ asset($right_ads) }}" alt="Right Advertisement Image" class="img-fluid">
             </div>
         </div>
-    
     </div>
+    @endif
     <div class="row">
         <div class="right-sidebar">
             <div class="col-md-12">

@@ -1,7 +1,13 @@
 @extends('layouts.front')
 
 @section('title','Singel Blog')
-
+@section('meta')
+    <meta property="og:url"                content="http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="When Great Minds Don’t Think Alike" />
+    <meta property="og:description"        content="How much does culture influence creative thinking?" />
+    <meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+@endsection
 @section('content')
  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
@@ -20,11 +26,10 @@
                     <!--<div class="clearfix"></div>-->
                     <div class="share-group">
                         <ul>
-                            <li><a href=""> <i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href=""> <i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href=""> <i class="fab fa-twitter"></i></a></li>
-                            <li><a href=""> <i class="fab fa-instagram"></i></a></li>
-                            <li><a href=""> <i class="fab fa-pinterest-p"></i></a></li>
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank"> <i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://plus.google.com/share?url=" target="_blank"> <i class="fab fa-google-plus-g"></i></a></li>
+                            <li><a href="https://twitter.com/home?status=" target="_blank"> <i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://pinterest.com/pin/create/button/?url=&media=&description=" target="_blank"> <i class="fab fa-pinterest-p"></i></a></li>
 
                         </ul>
                     </div>
@@ -37,11 +42,13 @@
                 </div>
                 @endif
                 <div class="clearfix"></div>
-                <div class="col-md-12">
-                    <div class="add-mid-body">
-
+                @if(isset($top_ads) && $top_ads)
+                    <div class="col-md-12">
+                        <div class="add-mid-body">
+                            <img src="{{ asset($top_ads) }}" class="img-fluid" alt="Top Advertisement Image">
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="clearfix"></div>
                 <div class="post-content">
                     {!! $post->details !!}
@@ -181,14 +188,15 @@
     <div class="clearfix"></div>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 sidebar-left-border">
-    <div class="row">
-        <div class="col-md-12 ">
-            <div class="add-right-sidebar">
-
+    @if(isset($right_ads) && $right_ads && !is_null($right_ads))
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="add-right-sidebar">
+                    <img src="{{ asset($right_ads) }}" alt="Right Advertisement Image" class="img-fluid">
+                </div>
             </div>
         </div>
-
-    </div>
+    @endif
     <div class="clearfix"></div>
     <div class="row">
         <div class="right-sidebar">
@@ -200,7 +208,8 @@
                     <div class="clearfix"></div>
                     <div class="author-content">
                         <div class="author-image pull-left">
-                            <img src="{{ asset($author_info->avater) }}" alt="">
+                            <?php $avater = $author_info->avater; if(!file_exists($avater)){$avater ='public/front/img/default_image.png'; }?>
+                            <img src="{{ asset($avater) }}" alt="">
                         </div>
                         <div class="author-name pull-right">
                             <h5>{{ $author_info->name }}</h5>
