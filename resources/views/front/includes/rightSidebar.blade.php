@@ -24,7 +24,7 @@
                                         @if(!is_null($post->image))
                                             <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
                                         @endif
-                                        <p>{{ $post->title }}
+                                        <p >{{ $post->title }}
                                             <label>লেখকঃ- <span><?php echo ($post->author_type==1)? $post->author->name: $post->admin_author->name; ?></span></label>
                                         </p>
                                     

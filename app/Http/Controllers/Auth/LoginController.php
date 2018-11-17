@@ -5,8 +5,8 @@ use Auth;
 use Route;
 use Session;
 use Socialite;
-use App\User;
 use App\Subscriber;
+use App\User;
 use App\SocialProvider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -168,7 +168,7 @@ class LoginController extends Controller
             $subscriber = Subscriber::where('subscriber_email', $socialUser->getEmail())->first();
 
             if(is_null($subscriber)){
-                Subcriber::create(['subscriber_email'=>$socialUser->getEmail(),'providerId' => $socialUser->getId(), 'provider' => $provider]);
+                Subscriber::create(['subscriber_email'=>$socialUser->getEmail(),'providerId' => $socialUser->getId(), 'provider' => $provider]);
                 return redirect('/')->with('success','Thank You For You Subscription');
             }
 

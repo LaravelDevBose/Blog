@@ -4,9 +4,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="col-lg-4 col-md-7 col-sm-6 col-xs-12 pull-left">
+                    <div class="col-lg-5 col-md-7 col-sm-6 col-xs-12 pull-left">
                         <div class="logo ">
                             <img src="{{asset($logo)}}" alt="">
+                        </div>
+                        <div class="site_name">
+                            <h2>{{ (isset($siteName)&& !empty($siteName))? ucwords($siteName): 'স্বরচিত' }}</h2>
                         </div>
                     </div>
 

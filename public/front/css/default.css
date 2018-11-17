@@ -44,12 +44,23 @@
 }
 
 .header{
-    background: #097688;
+    background: linear-gradient(to bottom right, #4747f1, #22f1e7);
     padding: 20px 0 10px 0;
 }
 .logo{
     width: 150px;
     height: 100px;
+    display: inline-block;
+}
+.site_name{
+    display: inline-block;
+}
+.site_name h2{
+    color: #fff;
+    font-size: 3rem;
+    font-style: italic;
+    position: absolute;
+    bottom: 2px;
 }
 .logo img {
     width: 100%;
@@ -420,6 +431,9 @@
     margin: 0;
     line-height: 1.2rem;
     font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .this-week-post ul li a p label{
     display: inline-block;
@@ -997,10 +1011,15 @@
 
 
 /*footer Start*/
-
+footer{
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .footer-top{
     padding: 20px 15px;
-    background: #097688;
 }
 .subscribe-panel{
     padding: 10px 20px;
@@ -1062,7 +1081,7 @@
 }
 
 .footer{
-    background: #3a3838;
+    background: #000000c7;
 }
 .footer .right-border{
     border-right: 2px dotted #6610f2;

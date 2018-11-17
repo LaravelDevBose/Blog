@@ -45,9 +45,9 @@
                         </form>
                         <div class="col-sm-12 social-login-group">
                             <ul>
-                                <li><a href=""> <i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href=""> <i class="fab fa-google-plus-g"></i></a></li>
-                                <li><a href=""> <i class="fab fa-twitter"></i></a></li>
+                                <li><a href="{{ route('social.login', 'facebook') }}"> <i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="{{ route('social.login', 'google') }}"> <i class="fab fa-google-plus-g"></i></a></li>
+                                <li><a href="{{ route('social.login', 'twitter') }}"> <i class="fab fa-twitter"></i></a></li>
                             </ul>
                         </div>
 
