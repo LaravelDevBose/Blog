@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function index()
     {
         $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
-        dd($analyticsData);
+//        dd($analyticsData);
         
         return view('admin.home.home');
     }

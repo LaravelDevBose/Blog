@@ -24,7 +24,7 @@
                         <div class="profile-info">
                             <div class="blogger-name">
                                 <h5 >{{ $author_info->name }}</h5>
-                                <a href="" class="author-follow pull-right">অনুসরণ করুন</a>
+                                <a href="{{ route('follow',$author_info->id, $type)  }}" class="author-follow pull-right">অনুসরণ করুন</a>
                             </div>
 
 

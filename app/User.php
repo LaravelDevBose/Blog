@@ -40,4 +40,47 @@ class User extends Authenticatable
     function socialProviders(){
         return $this->hasMany(SocialProvider::Class);
     }
+
+
+    public function followers()
+    {
+        return DB::table('users')
+            ->select('users.id', 'users.name', 'users.email','users.phoneNo', 'users.avatar', 'followers.created_at')
+            ->join('followers', 'admins.id', '=', 'followers.follows_id')
+            ->join('users', 'followers.user_id', '=','users.id')
+            ->where('followers.user_type', 'U')
+            ->orderBy('followers.created_at', 'desc')
+            ->get();
+
+    }
+
+    public function follows()
+    {
+        return DB::table('users')
+            ->select('users.id', 'users.name', 'users.email','users.phoneNo', 'users.avatar', 'followers.created_at')
+            ->join('followers', 'users.id', '=', 'followers.user_id')
+            ->join('users', 'followers.follows_id', '=','users.id')
+            ->where('followers.user_type', 'U')
+            ->orderBy('followers.created_at', 'desc')
+            ->get();
+
+    }
+
+
+    public function follow($userId)
+    {
+        $this->follows()->attach($userId);
+        return $this;
+    }
+
+    public function unfollow($userId)
+    {
+        $this->follows()->detach($userId);
+        return $this;
+    }
+
+    public function isFollowing($userId)
+    {
+        return (boolean) $this->follows()->where('follows_id', $userId)->first(['id']);
+    }
 }

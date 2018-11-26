@@ -9,7 +9,8 @@ Route::get('/singel/{id}','FrontEndController@singelBlog')->name('blog');
 Route::get('/profile/{id}/{type}','FrontEndController@profile')->name('profile');
 Route::get('/all/notice','FrontEndController@all_notice')->name('notice.list');
 Route::get('/notice/read/{id}','FrontEndController@read_notice')->name('notice.read');
-
+Route::get('follow/{follows_id}/{type}', 'FollowerController@follow')->name('follow');
+Route::get('unfollow/{follows_id}', 'FollowerController@unfollow')->name('unfollow');
 
 
 Route::get('/most/like/blogs', 'FrontEndController@mostlikeAllBlogs')->name('like.blogs');
@@ -96,6 +97,9 @@ Route::group([ 'prefix' => 'admin' ,'middleware'=>['auth:admin']], function() {
         Route::get('/delete/{id}', 'NoticeController@destroy')->name('destroy');
     });
 
+    Route::prefix('followers')->name('admin.followers.')->group(function(){
+        Route::get('/', 'FollowerController@admin_follower_list')->name('index');
+    });
     Route::prefix('ads')->name('ads.')->group(function (){
         Route::get('/','AdvertisementController@index')->name('index');
         Route::post('/store','AdvertisementController@store')->name('store');
